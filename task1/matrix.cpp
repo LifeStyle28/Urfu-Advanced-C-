@@ -1,84 +1,92 @@
 #include "matrix.hpp"
-#include <stdexcept>
 
-using namespace std;
-
-Matrix::Matrix(int rows, int cols) {
-    if (rows < 0 || cols < 0) {
-        throw out_of_range("");
-    }
-    num_rows = rows;
-    num_cols = cols;
-    data.assign(rows, vector<int>(cols, 0));
+Matrix::Matrix(int numRows, int numCols) 
+{
+    Reset(numRows, numCols);
 }
 
-void Matrix::Reset(int rows, int cols) {
-    if (rows < 0 || cols < 0) {
-        throw out_of_range("");
+void Matrix::Reset(int numRows, int numCols) 
+{
+   
+    if (numRows < 0 || numCols < 0) 
+    {
+        throw std::out_of_range("Столбцы и строки должны быть положительны");
     }
-    num_rows = rows;
-    num_cols = cols;
-    data.assign(rows, vector<int>(cols, 0));
+
+    if (numRows == 0 || numCols == 0) 
+    {
+        rows = cols = 0;
+        data.clear();
+    } else {
+        rows = numRows;
+        cols = numCols;
+        data.assign(rows, std::vector<int>(cols));
+    }
 }
 
-int Matrix::At(int row, int col) const {
-    if (row < 0 || row >= num_rows || col < 0 || col >= num_cols) {
-        throw out_of_range("");
+
+int& Matrix::At(int row, int col) 
+{
+
+    if (row < 0 || row >= rows || col < 0 || col >= cols) 
+    {
+        throw std::out_of_range("Index out of range");
     }
     return data[row][col];
 }
 
-int& Matrix::At(int row, int col) {
-    if (row < 0 || row >= num_rows || col < 0 || col >= num_cols) {
-        throw out_of_range("");
+
+const int& Matrix::At(int row, int col) const 
+{
+    if (row < 0 || row >= rows || col < 0 || col >= cols) 
+    {
+        throw std::out_of_range("Index out of range");
     }
     return data[row][col];
 }
 
-int Matrix::GetRows() const {
-    return num_rows;
+int Matrix::GetRows() const
+{
+    return rows;
 }
 
-int Matrix::GetCols() const {
-    return num_cols;
+int Matrix::GetCols() const
+{
+    
+    return cols;
 }
 
-istream& operator>>(istream& in, Matrix& matrix) {
-    int rows, cols;
-    in >> rows >> cols;
-    matrix.Reset(rows, cols);
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
-            in >> matrix.At(i, j);
+
+bool Matrix::operator==(const Matrix& m2) const
+{
+    return rows == m2.rows && cols == m2.cols && data == m2.data;
+}
+
+
+bool Matrix::operator!=(const Matrix& m2) const
+{
+   
+    return !(*this == m2);
+}
+
+
+Matrix Matrix::operator+(const Matrix& m2) const 
+{
+
+}
+    if (rows != m2.rows || cols != m2.cols)
+    {
+        throw std::invalid_argument("Невозможно сложить данные матрицы");
+    }
+
+    Matrix result(rows, cols);
+    for (int i = 0; i < rows; ++i) 
+    {
+        for (int j = 0; j < cols; ++j) 
+        {
+            result.At(i, j) = At(i, j) + m2.At(i, j);
         }
     }
-    return in;
-}
 
-ostream& operator<<(ostream& out, const Matrix& matrix) {
-    out << matrix.GetRows() << " " << matrix.GetCols() << "\n";
-    for (int i = 0; i < matrix.GetRows(); ++i) {
-        for (int j = 0; j < matrix.GetCols(); ++j) {
-            out << matrix.At(i, j) << " ";
-        }
-        out << "\n";
-    }
-    return out;
-}
-
-bool operator==(const Matrix& lhs, const Matrix& rhs) {
-    return lhs.num_rows == rhs.num_rows && lhs.num_cols == rhs.num_cols && lhs.data == rhs.data;
-}
-
-Matrix operator+(const Matrix& lhs, const Matrix& rhs) {
-    if (lhs.GetRows() != rhs.GetRows() || lhs.GetCols() != rhs.GetCols()) {
-        throw invalid_argument("");
-    }
-    Matrix result(lhs.GetRows(), lhs.GetCols());
-    for (int i = 0; i < lhs.GetRows(); ++i) {
-        for (int j = 0; j < lhs.GetCols(); ++j) {
-            result.At(i, j) = lhs.At(i, j) + rhs.At(i, j);
-        }
-    }
     return result;
 }
