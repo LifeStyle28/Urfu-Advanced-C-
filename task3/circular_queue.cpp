@@ -1,8 +1,8 @@
 #include "circular_queue.hpp"
 
-CircularQueue::CircularQueue(size_t size) :
+CircularQueue::CircularQueue(size_t size):buffer(size)
 {
-: buffer(size), capacity(size), front(0), rear(0), count(0) {}	
+capacity(size), front(0), rear(0), count(0) {}	
 }
 
 bool CircularQueue::Push(int value)
