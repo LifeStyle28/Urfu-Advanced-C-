@@ -1,14 +1,14 @@
 #pragma once
 
-#include <vector>
+#include <cstddef>
 
 class CircularQueue {
-private: 
-    std::vector<int> buffer;          
-    size_t capacity;        
-    size_t size;          
-    size_t front;         
-    size_t rear;   
+private:   
+    int* buffer; 
+    size_t capacity;
+    size_t front;
+    size_t rear;
+    size_t count;
 public:
     CircularQueue(size_t size); // создать очередь с определенным размером буффера
     bool Push(int value); // добавить значение в конец очереди (false, если очередь заполнена)
