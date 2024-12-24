@@ -1,54 +1,27 @@
-#include "circular_queue.hpp"
+#pragma once
 
+#include <cstddef>
 #include <vector>
 
-CircularQueue::CircularQueue(size_t size) : capacity(size), size(0), front(0), rear(0) {
-    buffer.resize(size);  // Pre-allocate exact size
-}
-
-
-bool CircularQueue::Push(int value) {
-    if (Full()) {
-        return false;
-    }
-    buffer[rear] = value;
-    rear = (rear + 1) % capacity;
-    size++;
-    return true;
-}
-
-
-bool CircularQueue::Pop() {
-    if (Empty()) {
-        return false;
-    }
-    front = (front + 1) % capacity;
-    size--;
-    return true;
-}
-
-
-int CircularQueue::Front() const {
-    if (Empty()) {
-        return -1;
-    }
-    return buffer[front];
-}
-
-
-int CircularQueue::Back() const {
-    if (Empty()) {
-        return -1;
-    }
-    return buffer[(rear - 1 + capacity) % capacity];
-}
-
-
-bool CircularQueue::Empty() const {
-    return size == 0;
-}
-
-
-bool CircularQueue::Full() const {
-    return size == capacity;
-}
+class CircularQueue {
+private:
+    std::vector<int> buffer;        
+    size_t capacity;  
+    size_t size;           
+    size_t front;       
+    size_t rear;     
+public:
+    CircularQueue(size_t size); // создать очередь с определенным размером буффера
+    bool Push(int value); // добавить значение в конец очереди (false, если очередь заполнена)
+@@ -11,4 +16,11 @@ class CircularQueue {
+    int Back() const; // получить значение из конца очереди (-1, если очередь пустая)
+    bool Empty() const; // проверить пустая ли очередь
+    bool Full() const; // проверить заполнена ли очередь
+    CircularQueue(size_t size);
+    bool Push(int value);       
+    bool Pop();        
+    int Front() const;           
+    int Back() const;         
+    bool Empty() const;       
+    bool Full() const;          
+};
