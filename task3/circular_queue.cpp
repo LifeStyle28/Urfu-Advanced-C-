@@ -1,36 +1,39 @@
 #include "circular_queue.hpp"
+#include <stdexcept>
 
-CircularQueue::CircularQueue(size_t size)
-{
-	// your implementation here
+CircularQueue::CircularQueue(size_t size) : buffer(new int[size]), capacity(size), front(0), rear(0), count(0) {}
+
+bool CircularQueue::Push(int value) {
+    if (count == capacity) {
+        return false;
+    }
+    buffer[rear] = value;
+    rear = (rear + 1) % capacity;
+    ++count;
+    return true;
 }
 
-bool CircularQueue::Push(int value)
-{
-    // your implementation here
+bool CircularQueue::Pop() {
+    if (count == 0) {
+        return false;
+    }
+    front = (front + 1) % capacity;
+    --count;
+    return true;
 }
 
-bool CircularQueue::Pop()
-{
-    // your implementation here
+int CircularQueue::Front() const {
+    return count == 0 ? -1 : buffer[front];
 }
 
-int CircularQueue::Front() const
-{
-    // your implementation here
+int CircularQueue::Back() const {
+    return count == 0 ? -1 : buffer[(rear - 1 + capacity) % capacity];
 }
 
-int CircularQueue::Back() const
-{
-    // your implementation here
+bool CircularQueue::Empty() const {
+    return count == 0;
 }
 
-bool CircularQueue::Empty() const
-{
-    // your implementation here
-}
-
-bool CircularQueue::Full() const
-{
-    // your implementation here
+bool CircularQueue::Full() const {
+    return count == capacity;
 }
