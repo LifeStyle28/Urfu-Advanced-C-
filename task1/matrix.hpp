@@ -1,7 +1,9 @@
 #pragma once
 
-class Matrix
-{
+#include <stdexcept>
+#include <vector>
+
+class Matrix {
 public:
     Matrix() = default;
     Matrix(int numRows, int numCols);
@@ -15,4 +17,7 @@ public:
     bool operator==(const Matrix& m2);
     bool operator!=(const Matrix& m2);
     Matrix operator+(const Matrix& m2);
+
+private:
+    std::vector<std::vector<int>> data; // Двумерный вектор для хранения данных
 };
