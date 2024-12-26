@@ -1,78 +1,46 @@
-#include "figures.hpp"
-#include <cmath>
+#pragma once
+#include <iostream>
+#include <vector>
 #include <stdexcept>
 
-Rect::Rect(double w, double h) : width(w), height(h) {
-    if (w < 0 || h < 0) {
-        throw LessThanZeroParam();
+class Matrix {
+public:
+    Matrix() : num_rows(0), num_cols(0) {}
+    explicit Matrix(int rows, int cols);
+    
+    Matrix(const Matrix& other) = default;
+    Matrix& operator=(const Matrix& other) = default;
+    
+    Matrix(Matrix&& other) noexcept : num_rows(other.num_rows), num_cols(other.num_cols), data(std::move(other.data)) {
+        other.num_rows = 0;
+        other.num_cols = 0;
     }
-}
-
-FigureType Rect::Type() const {
-    return FigureType::RECTANGLE;
-}
-
-double Rect::Perimeter() const {
-    return (width + height) * 2;
-}
-
-double Rect::Area() const {
-    return width * height;
-}
-
-Triangle::Triangle(double side1, double side2, double side3) : a(side1), b(side2), c(side3) {
-    if (side1 < 0 || side2 < 0 || side3 < 0) {
-        throw LessThanZeroParam();
-    }
-    if (side1 + side2 <= side3 || side1 + side3 <= side2 || side2 + side3 <= side1) {
-        throw WrongTriangle();
-    }
-}
-
-FigureType Triangle::Type() const {
-    return FigureType::TRIANGLE;
-}
-
-double Triangle::Perimeter() const {
-    return a + b + c;
-}
-
-double Triangle::Area() const {
-    double half_perimeter = Perimeter() / 2;
-    return std::sqrt(half_perimeter * (half_perimeter - a) * (half_perimeter - b) * (half_perimeter - c));
-}
-
-Circle::Circle(double r) : radius(r) {
-    if (r < 0) {
-        throw LessThanZeroParam();
-    }
-}
-
-FigureType Circle::Type() const {
-    return FigureType::CIRCLE;
-}
-
-double Circle::Perimeter() const {
-    return 2 * PI * radius;
-}
-
-double Circle::Area() const {
-    return PI * radius * radius;
-}
-
-std::unique_ptr<Figure> make_figure(FigureType type, double x, double y, double z) {
-    if (x < 0 || y < 0 || z < 0) {
-        throw LessThanZeroParam();
+    Matrix& operator=(Matrix&& other) noexcept {
+        if (this != &other) {
+            num_rows = other.num_rows;
+            num_cols = other.num_cols;
+            data = std::move(other.data);
+            other.num_rows = 0;
+            other.num_cols = 0;
+        }
+        return *this;
     }
 
-    switch (type) {
-        case FigureType::RECTANGLE:
-            return std::make_unique<Rect>(x, y);
-        case FigureType::CIRCLE:
-            return std::make_unique<Circle>(x);
-        case FigureType::TRIANGLE:
-            return std::make_unique<Triangle>(x, y, z);
-        default:
-            return nullptr;
-    }
-}
+    void Reset(int rows, int cols);
+    int At(int row, int col) const;
+    int& At(int row, int col);
+    int GetRows() const;
+    int GetCols() const;
+
+    friend std::istream& operator>>(std::istream& in, Matrix& matrix);
+    friend std::ostream& operator<<(std::ostream& out, const Matrix& matrix);
+
+    friend bool operator==(const Matrix& lhs, const Matrix& rhs);
+    friend bool operator!=(const Matrix& lhs, const Matrix& rhs);
+
+    friend Matrix operator+(const Matrix& lhs, const Matrix& rhs);
+private:
+    int num_rows;
+    int num_cols;
+    std::vector<std::vector<int>> data;
+};
