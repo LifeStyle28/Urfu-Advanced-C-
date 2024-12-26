@@ -1,104 +1,74 @@
 #include "matrix.hpp"
-
 #include <stdexcept>
+#include <vector>
 
-Matrix::Matrix(int numRows, int numCols)
-{
-    // your implementation here
-using namespace std;
+// Конструктор с параметрами
+Matrix::Matrix(int numRows, int numCols) {
+    Reset(numRows, numCols);
+}
 
-Matrix::Matrix(int rows, int cols) {
-    if (rows < 0 || cols < 0) {
-        throw out_of_range("");
-    }
-    if (rows == 0 || cols == 0) {
-        num_rows = 0;
-        num_cols = 0;
-        data.clear();
+// Метод для сброса размеров матрицы
+void Matrix::Reset(int numRows, int numCols) {
+    if (numRows <= 0 || numCols <= 0) {
+        rows_ = 0;
+        cols_ = 0;
+        data_.clear();
     } else {
-        num_rows = rows;
-        num_cols = cols;
-        data.assign(rows, vector<int>(cols, 0));
+        rows_ = numRows;
+        cols_ = numCols;
+        data_.resize(rows_, std::vector<int>(cols_, 0));
     }
 }
 
-void Matrix::Reset(int numRows, int numCols)
-{
-    // your implementation here
-void Matrix::Reset(int rows, int cols) {
-    if (rows < 0 || cols < 0) {
-        throw out_of_range("");
-    }
-    if (rows == 0 || cols == 0) {
-        num_rows = 0;
-        num_cols = 0;
-        data.clear();
-    } else {
-        num_rows = rows;
-        num_cols = cols;
-        data.assign(rows, vector<int>(cols, 0));
-    }
-}
-
-int& Matrix::At(int row, int col)
-{
-    // your implementation here
-int Matrix::At(int row, int col) const {
-    if (row < 0 || row >= num_rows || col < 0 || col >= num_cols) {
-        throw out_of_range("");
-    }
-    return data[row][col];
-}
-
-const int& Matrix::At(int row, int col) const
-{
-    // your implementation here
+// Метод для доступа к элементам матрицы (неконстантный)
 int& Matrix::At(int row, int col) {
-    if (row < 0 || row >= num_rows || col < 0 || col >= num_cols) {
-        throw out_of_range("");
+    if (row < 0 || row >= rows_ || col < 0 || col >= cols_) {
+        throw std::out_of_range("Index out of range");
     }
-    return data[row][col];
+    return data_[row][col];
 }
 
-int Matrix::GetRows() const
-{
-    // your implementation here
+// Метод для доступа к элементам матрицы (константный)
+const int& Matrix::At(int row, int col) const {
+    if (row < 0 || row >= rows_ || col < 0 || col >= cols_) {
+        throw std::out_of_range("Index out of range");
+    }
+    return data_[row][col];
+}
+
+// Метод для получения количества строк
 int Matrix::GetRows() const {
-    return num_rows;
+    return rows_;
 }
 
-int Matrix::GetCols() const
-{
-    // your implementation here
+// Метод для получения количества столбцов
 int Matrix::GetCols() const {
-    return num_cols;
+    return cols_;
 }
 
-bool Matrix::operator==(const Matrix& m2)
-{
-    // your implementation here
-bool operator==(const Matrix& lhs, const Matrix& rhs) {
-    return lhs.num_rows == rhs.num_rows && lhs.num_cols == rhs.num_cols && lhs.data == rhs.data;
-}
-
-bool Matrix::operator!=(const Matrix& m2)
-{
-    // your implementation here
-bool operator!=(const Matrix& lhs, const Matrix& rhs) {
-    return !(lhs == rhs);
-}
-
-Matrix Matrix::operator+(const Matrix& m2)
-{
-    // your implementation here
-Matrix operator+(const Matrix& lhs, const Matrix& rhs) {
-    if (lhs.GetRows() != rhs.GetRows() || lhs.GetCols() != rhs.GetCols()) {
-        throw invalid_argument("");
+// Оператор сравнения на равенство
+bool Matrix::operator==(const Matrix& m2) {
+    if (rows_ != m2.rows_ || cols_ != m2.cols_) {
+        return false;
     }
-    Matrix result(lhs.GetRows(), lhs.GetCols());
-    for (int i = 0; i < lhs.GetRows(); ++i) {
-        for (int j = 0; j < lhs.GetCols(); ++j) {
-            result.At(i, j) = lhs.At(i, j) + rhs.At(i, j);
+    return data_ == m2.data_;
+}
+
+// Оператор сравнения на неравенство
+bool Matrix::operator!=(const Matrix& m2) {
+    return !(*this == m2);
+}
+
+// Оператор сложения матриц
+Matrix Matrix::operator+(const Matrix& m2) {
+    if (rows_ != m2.rows_ || cols_ != m2.cols_) {
+        throw std::invalid_argument("Matrices must have the same dimensions for addition");
+    }
+
+    Matrix result(rows_, cols_);
+    for (int i = 0; i < rows_; ++i) {
+        for (int j = 0; j < cols_; ++j) {
+            result.At(i, j) = At(i, j) + m2.At(i, j);
         }
     }
     return result;
