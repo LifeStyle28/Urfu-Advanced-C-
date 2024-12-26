@@ -1,36 +1,53 @@
 #include "circular_queue.hpp"
+#include <stdexcept>
 
+// Конструктор. Инициализация параметров.
 CircularQueue::CircularQueue(size_t size)
-{
-	// your implementation here
+    : data(size), head(0), tail(0), maxSize(size), currentSize(0) {}
+
+// Метод для добавления элемента в очередь
+bool CircularQueue::Push(int value) {
+    if (Full()) {
+        return false; // Если очередь заполнена, вернуть false
+    }
+    data[tail] = value; // Добавить значение в очередь
+    tail = (tail + 1) % maxSize; // Обновить конец очереди
+    currentSize++; // Увеличить текущее количество элементов
+    return true; // Успешно добавлено
 }
 
-bool CircularQueue::Push(int value)
-{
-    // your implementation here
+// Метод для удаления элемента из очереди
+bool CircularQueue::Pop() {
+    if (Empty()) {
+        return false; // Если очередь пуста, вернуть false
+    }
+    head = (head + 1) % maxSize; // Обновить начало очереди
+    currentSize--; // Уменьшить текущее количество элементов
+    return true; // Успешно удалено
 }
 
-bool CircularQueue::Pop()
-{
-    // your implementation here
+// Метод для получения элемента из начала очереди
+int CircularQueue::Front() const {
+    if (Empty()) {
+        return -1; // Если очередь пуста, вернуть -1
+    }
+    return data[head]; // Вернуть значение из начала очереди
 }
 
-int CircularQueue::Front() const
-{
-    // your implementation here
+// Метод для получения элемента из конца очереди
+int CircularQueue::Back() const {
+    if (Empty()) {
+        return -1; // Если очередь пуста, вернуть -1
+    }
+    return data[(tail - 1 + maxSize) % maxSize]; // Вернуть последнее добавленное значение
 }
 
-int CircularQueue::Back() const
-{
-    // your implementation here
+// Метод для проверки, пуста ли очередь
+bool CircularQueue::Empty() const {
+    return currentSize == 0; // Очередь пуста, если количество элементов = 0
 }
 
-bool CircularQueue::Empty() const
-{
-    // your implementation here
-}
-
-bool CircularQueue::Full() const
-{
-    // your implementation here
+// Метод для проверки, заполнена ли очередь
+bool CircularQueue::Full() const {
+    return currentSize == maxSize; // Очередь заполнена, если текущее количество элементов равно максимальному
 }
