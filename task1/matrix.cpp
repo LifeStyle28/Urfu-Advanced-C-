@@ -1,4 +1,3 @@
-cpp
 #include <stdexcept>
 
 class Matrix {
