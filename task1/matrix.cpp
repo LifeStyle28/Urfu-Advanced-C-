@@ -1,48 +1,78 @@
-#include "matrix.hpp"
-
+#include "figures.hpp"
+#include <cmath>
 #include <stdexcept>
 
-Matrix::Matrix(int numRows, int numCols)
-{
-    // your implementation here
+Rect::Rect(double w, double h) : width(w), height(h) {
+    if (w < 0 || h < 0) {
+        throw LessThanZeroParam();
+    }
 }
 
-void Matrix::Reset(int numRows, int numCols)
-{
-    // your implementation here
+FigureType Rect::Type() const {
+    return FigureType::RECTANGLE;
 }
 
-int& Matrix::At(int row, int col)
-{
-    // your implementation here
+double Rect::Perimeter() const {
+    return (width + height) * 2;
 }
 
-const int& Matrix::At(int row, int col) const
-{
-    // your implementation here
+double Rect::Area() const {
+    return width * height;
 }
 
-int Matrix::GetRows() const
-{
-    // your implementation here
+Triangle::Triangle(double side1, double side2, double side3) : a(side1), b(side2), c(side3) {
+    if (side1 < 0 || side2 < 0 || side3 < 0) {
+        throw LessThanZeroParam();
+    }
+    if (side1 + side2 <= side3 || side1 + side3 <= side2 || side2 + side3 <= side1) {
+        throw WrongTriangle();
+    }
 }
 
-int Matrix::GetCols() const
-{
-    // your implementation here
+FigureType Triangle::Type() const {
+    return FigureType::TRIANGLE;
 }
 
-bool Matrix::operator==(const Matrix& m2)
-{
-    // your implementation here
+double Triangle::Perimeter() const {
+    return a + b + c;
 }
 
-bool Matrix::operator!=(const Matrix& m2)
-{
-    // your implementation here
+double Triangle::Area() const {
+    double half_perimeter = Perimeter() / 2;
+    return std::sqrt(half_perimeter * (half_perimeter - a) * (half_perimeter - b) * (half_perimeter - c));
 }
 
-Matrix Matrix::operator+(const Matrix& m2)
-{
-    // your implementation here
+Circle::Circle(double r) : radius(r) {
+    if (r < 0) {
+        throw LessThanZeroParam();
+    }
+}
+
+FigureType Circle::Type() const {
+    return FigureType::CIRCLE;
+}
+
+double Circle::Perimeter() const {
+    return 2 * PI * radius;
+}
+
+double Circle::Area() const {
+    return PI * radius * radius;
+}
+
+std::unique_ptr<Figure> make_figure(FigureType type, double x, double y, double z) {
+    if (x < 0 || y < 0 || z < 0) {
+        throw LessThanZeroParam();
+    }
+
+    switch (type) {
+        case FigureType::RECTANGLE:
+            return std::make_unique<Rect>(x, y);
+        case FigureType::CIRCLE:
+            return std::make_unique<Circle>(x);
+        case FigureType::TRIANGLE:
+            return std::make_unique<Triangle>(x, y, z);
+        default:
+            return nullptr;
+    }
 }
