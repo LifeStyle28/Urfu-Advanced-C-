@@ -99,22 +99,23 @@ bool Matrix::operator!=(const Matrix& m2)
 
 Matrix Matrix::operator+(const Matrix& m2)
 {
-    if (x == m2.GetRows() && y == m2.GetCols())
-    {
-        int i = 0, j = 0;
-        for (i; i < x; ++i)
+        if (x != m2.GetRows() || y != m2.GetCols())
         {
-            for (j; j < y; ++j)
+            throw invalid_argument("");
+        }
+        else
+        {
+            Matrix S(x, y);
+            for (int i = 0; i < x; ++i)
             {
-                Z[i][j] += m2.At(i, j);
+                for (int j = 0; j < y; ++j)
+                {
+                    S.At(i, j) = Z[i][j] + m2.At(i, j);
+                }
             }
-        };
+            return res;
+        }
     }
-    else
-    {
-        throw invalid_argument("");
-    }
-}
 
 istream& operator>>(istream& in, Matrix& M)
 {
