@@ -55,12 +55,12 @@ std::unique_ptr<Figure> make_figure(FigureType type, double a, double b = 0, dou
 class WrongTriangle : public invalid_argument 
 {
 public:
-    WrongTriangle(const char* a) : invalid_argument(a) {}
+    using std::invalid_argument::invalid_argument;
 };
 
 class LessThanZeroParam : public invalid_argument 
 {
 public:
-    LessThanZeroParam(const char* a) : invalid_argument(a) {}
+    using std::invalid_argument::invalid_argument;
 };
 
