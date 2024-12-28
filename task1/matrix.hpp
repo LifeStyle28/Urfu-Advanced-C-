@@ -2,6 +2,9 @@
 
 class Matrix
 {
+private:
+    int x, y;
+    vector<vector<int>> Z;
 public:
     Matrix() = default;
     Matrix(int numRows, int numCols);
