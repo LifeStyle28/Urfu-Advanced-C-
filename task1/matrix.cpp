@@ -115,3 +115,27 @@ Matrix Matrix::operator+(const Matrix& m2)
         throw invalid_argument("");
     }
 }
+
+istream& operator>>(istream& in, Matrix& M)
+{
+    int x, y;
+    in >> x >> y;
+    M.Reset(x, y);
+    for (int i = 0; i < x; ++i) {
+        for (int j = 0; j < y; ++j) {
+            in >> M.At(i, j);
+        }
+    }
+    return in;
+}
+
+ostream& operator<<(ostream& out, const Matrix& M) {
+    out << M.GetRows() << " " << M.GetCols() << "\n";
+    for (int i = 0; i < M.GetRows(); ++i) {
+        for (int j = 0; j < M.GetCols(); ++j) {
+            out << M.At(i, j) << " ";
+        }
+        out << "\n";
+    }
+    return out;
+}
