@@ -52,11 +52,15 @@ public:
 
 std::unique_ptr<Figure> make_figure(FigureType type, double a, double b = 0, double c = 0);
 
-class WrongTriangle : public std::invalid_argument
+class WrongTriangle : public invalid_argument 
 {
+public:
+    WrongTriangle(const char* a) : invalid_argument(a) {}
 };
 
-class LessThanZeroParam : public std::invalid_argument
+class LessThanZeroParam : public invalid_argument 
 {
+public:
+    LessThanZeroParam(const char* a) : invalid_argument(a) {}
 };
 
