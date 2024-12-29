@@ -8,22 +8,20 @@
 
 Matrix::Matrix(int numRows, int numCols)
 {
-    int i;
-    vector<int> length(NULL,numRows);
-    for (i = 0; i < numCols - 1; i++)
+    vector<int> l(NULL,numRows);
+    for (int i = 0; i < numCols - 1; i++)
     {
-	    mat.push_back(length);
+	    mat.push_back(l);
     }
 }
 
 void Matrix::Reset(int numRows, int numCols)
 {
-    int i;
     mat.resize(0);
-    vector<int> length(NULL, numCols);
+    vector<int> l(NULL, numCols);
     for (int i = 0; i < numRows - 1; i++)
     {
-	    mat.push_back(length);
+	    mat.push_back(l);
     }
 }
 
