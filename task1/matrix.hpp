@@ -2,8 +2,6 @@
 
 class Matrix
 {
-private:
-    vector<vector<float>> mat;
 public:
     Matrix() = default;
     Matrix(int numRows, int numCols);
@@ -17,4 +15,7 @@ public:
     bool operator==(const Matrix& m2);
     bool operator!=(const Matrix& m2);
     Matrix operator+(const Matrix& m2);
+
+    int rows;
+    int cols;
 };
