@@ -1,6 +1,6 @@
 #include "matrix.hpp"
 #include <iostream>
-using namespace std;
+#include <stdexcept>
 
 Matrix::Matrix(int numRows, int numCols)
 {
