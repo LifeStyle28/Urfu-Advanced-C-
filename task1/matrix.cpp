@@ -1,6 +1,5 @@
 #include "matrix.hpp"
 #include <iostream>
-#include <vector>
 #include <cerr>
 using namespace std;
 
