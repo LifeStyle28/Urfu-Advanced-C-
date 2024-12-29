@@ -11,23 +11,23 @@ private:
     int cols;
     std::vector<std::vector<int>> mat;
 public:
-     Matrix() : num_rows(0), num_cols(0) {}
+     Matrix() : rows(0), cols(0) {}
     explicit Matrix(int rows, int cols);
     
     Matrix(const Matrix& other) = default;
     Matrix& operator=(const Matrix& other) = default;
     
-    Matrix(Matrix&& other) noexcept : num_rows(other.num_rows), num_cols(other.num_cols), data(std::move(other.data)) {
-        other.num_rows = 0;
-        other.num_cols = 0;
+    Matrix(Matrix&& other) noexcept : rows(other.rows), cols(other.cols), mat(std::move(other.mat)) {
+        other.rows = 0;
+        other.ols = 0;
     }
     Matrix& operator=(Matrix&& other) noexcept {
         if (this != &other) {
-            num_rows = other.num_rows;
-            num_cols = other.num_cols;
-            data = std::move(other.data);
-            other.num_rows = 0;
-            other.num_cols = 0;
+            num_rows = other.rows;
+            num_cols = other.cols;
+            data = std::move(other.mat);
+            other.rows = 0;
+            other.cols = 0;
         }
         return *this;
     }
