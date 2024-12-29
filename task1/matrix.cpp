@@ -60,7 +60,7 @@ void Matrix::Reset(int numRows, int numCols)
 
 
 
-int Matrix::At(int row, int col)
+int Matrix::At(int row, int col) const
 {
     //вывод ошибок
 	if (row < 0)
@@ -81,7 +81,7 @@ int Matrix::At(int row, int col)
     	}
     	return mat[row][col];
 
-int& Matrix::At(int row, int col) const
+int& Matrix::At(int row, int col)
 {
     //вывод ошибок
 	if (row < 0)
