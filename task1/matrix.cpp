@@ -1,6 +1,8 @@
 #include "matrix.hpp"
+#include <iostream>
+#include <iomanip>
+#include <cmath>
 #include <vector>
-
 #include <stdexcept>
 
 
