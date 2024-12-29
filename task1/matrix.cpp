@@ -2,6 +2,12 @@
 
 #include <stdexcept>
 
+int main()
+{
+    cout<<"hello world";
+}
+
+
 Matrix::Matrix(int numRows, int numCols)
 {
     // your implementation here
