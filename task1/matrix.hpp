@@ -2,6 +2,10 @@
 
 class Matrix
 {
+private:
+    int rows;
+    int cols;
+    std::vector<std::vector<int>> mat;
 public:
     Matrix() = default;
     Matrix(int numRows, int numCols);
@@ -16,6 +20,4 @@ public:
     bool operator!=(const Matrix& m2);
     Matrix operator+(const Matrix& m2);
 
-    int rows;
-    int cols;
 };
