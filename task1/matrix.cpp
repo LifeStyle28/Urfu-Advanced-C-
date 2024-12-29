@@ -102,7 +102,7 @@ Matrix operator+(const Matrix& lhs, const Matrix& rhs)
 {
 	if (lhs.GetRows() != rhs.GetRows() || lhs.GetCols() != rhs.GetCols()) 
 	{
-        	cerr<<"невозможный аргумент";
+        	throw invalid_argument("");
     	}
     	Matrix result(lhs.GetRows(), lhs.GetCols());
     	for (int i = 0; i < lhs.GetRows(); ++i) 
