@@ -6,15 +6,9 @@ using namespace std;
 Matrix::Matrix(int numRows, int numCols)
 {
 	//вывод ошибок
-	if (numRows < 0)
-    	{
-		throw out_of_range("");
-		//cerr<<"Произошла ошибка -> количество строк не может быть меньше нуля";
-    	}
-   	if (numCols < 0)
+	if (rows < 0 || cols < 0)
 	{
 		throw out_of_range("");
-		//cerr<<"Произошла ошибка -> количество столбцев не может быть меньше нуля";
     	}
 
 	//при нуле строк или столбцев, или всё вместе
@@ -36,15 +30,9 @@ Matrix::Matrix(int numRows, int numCols)
 void Matrix::Reset(int numRows, int numCols)
 {
     //вывод ошибок
-	if (numRows < 0)
-    	{
-		throw out_of_range("");
-		//cerr<<"Произошла ошибка -> количество строк не может быть меньше нуля";
-    	}
-   	if (numCols < 0)
+	if (rows < 0 || cols < 0)
 	{
 		throw out_of_range("");
-		//cerr<<"Произошла ошибка -> количество столбцев не может быть меньше нуля";
     	}
 
 	//при нуле строк или столбцев, или всё вместе
@@ -68,25 +56,9 @@ void Matrix::Reset(int numRows, int numCols)
 int Matrix::At(int row, int col) const
 {
     //вывод ошибок
-	if (row < 0)
-    	{
-		throw out_of_range("");
-		//cerr<<"Произошла ошибка -> нет строки меньше нуля, дебил, ты сто пытаешься найти? Я вот твою логику (◣_◢)";
-    	}
-   	if (col < 0)
+	if (row < 0 || row >= num_rows || col < 0 || col >= num_cols)
 	{
 		throw out_of_range("");
-		//cerr<<"Произошла ошибка -> нет столбца меньше нуля, никак вы б$@&* не научитесь (╬ಠ益ಠ)";
-    	}
-	if (row >= rows)
-	{
-		throw out_of_range("");
-		//cerr<<"Произошла ошибка -> у нас строк меньше, дружок пирожок (─‿‿─)";
-    	}
-	if (col >= cols)
-	{
-		throw out_of_range("");
-		//cerr<<"Произошла ошибка -> эээээм, у нас, ващет, столбцев меньше (￣︿￣)";
     	}
     	return mat[row][col];
 }
@@ -94,25 +66,9 @@ int Matrix::At(int row, int col) const
 int& Matrix::At(int row, int col)
 {
     //вывод ошибок
-	if (row < 0)
-    	{
-		throw out_of_range("");
-		//cerr<<"Произошла ошибка -> нет строки меньше нуля, дебил, ты сто пытаешься найти? Я вот твою логику (◣_◢)";
-    	}
-   	if (col < 0)
+	if (row < 0 || row >= num_rows || col < 0 || col >= num_cols)
 	{
 		throw out_of_range("");
-		//cerr<<"Произошла ошибка -> нет столбца меньше нуля, никак вы б$@&* не научитесь (╬ಠ益ಠ)";
-    	}
-	if (row >= rows)
-	{
-		throw out_of_range("");
-		//cerr<<"Произошла ошибка -> у нас строк меньше, дружок пирожок (─‿‿─)";
-    	}
-	if (col >= cols)
-	{
-		throw out_of_range("");
-		//cerr<<"Произошла ошибка -> эээээм, у нас, ващет, столбцев меньше (￣︿￣)";
     	}
     	return mat[row][col];
     
