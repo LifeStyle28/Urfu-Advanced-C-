@@ -9,7 +9,7 @@
 Matrix::Matrix(int numRows, int numCols)
 {
     int i;
-    vector<int> lenghth(NULL,numRows);
+    vector<int> length(NULL,numRows);
     for (i = 0; i < numCols - 1; i++)
     {
 	    mat.push_back(length);
