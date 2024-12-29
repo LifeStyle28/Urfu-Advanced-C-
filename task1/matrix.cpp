@@ -80,6 +80,7 @@ int Matrix::At(int row, int col) const
 		cerr<<"Произошла ошибка -> эээээм, у нас, ващет, столбцев меньше (￣︿￣)";
     	}
     	return mat[row][col];
+}
 
 int& Matrix::At(int row, int col)
 {
@@ -130,14 +131,17 @@ bool Matrix::operator!=(const Matrix& lhs, const Matrix& rhs)
 
 Matrix Matrix::operator+(const Matrix& lhs, const Matrix& rhs)
 {
-	if (lhs.GetRows() != rhs.GetRows() || lhs.GetCols() != rhs.GetCols()) {
-        cerr<<"невозможный аргумент";
-    }
-    Matrix result(lhs.GetRows(), lhs.GetCols());
-    for (int i = 0; i < lhs.GetRows(); ++i) {
-        for (int j = 0; j < lhs.GetCols(); ++j) {
-            result.At(i, j) = lhs.At(i, j) + rhs.At(i, j);
-        }
-    }
-    return result;
+	if (lhs.GetRows() != rhs.GetRows() || lhs.GetCols() != rhs.GetCols()) 
+	{
+        	cerr<<"невозможный аргумент";
+    	}
+    	Matrix result(lhs.GetRows(), lhs.GetCols());
+    	for (int i = 0; i < lhs.GetRows(); ++i) 
+		{
+        		for (int j = 0; j < lhs.GetCols(); ++j) 
+			{
+            			result.At(i, j) = lhs.At(i, j) + rhs.At(i, j);
+        		}
+    		}
+    	return result;
 }
