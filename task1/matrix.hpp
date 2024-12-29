@@ -19,13 +19,13 @@ public:
     
     Matrix(Matrix&& other) noexcept : rows(other.rows), cols(other.cols), mat(std::move(other.mat)) {
         other.rows = 0;
-        other.ols = 0;
+        other.сols = 0;
     }
     Matrix& operator=(Matrix&& other) noexcept {
         if (this != &other) {
-            num_rows = other.rows;
-            num_cols = other.cols;
-            data = std::move(other.mat);
+            rows = other.rows;
+            cols = other.cols;
+            mat = std::move(other.mat);
             other.rows = 0;
             other.cols = 0;
         }
