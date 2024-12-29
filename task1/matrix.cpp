@@ -1,18 +1,33 @@
 #include "matrix.hpp"
 #include <iostream>
-#include <iomanip>
-#include <cmath>
 #include <vector>
-#include <stdexcept>
-
+#include <cerr>
+using namespace std;
 
 Matrix::Matrix(int numRows, int numCols)
 {
-    vector<int> l(NULL,numRows);
-    for (int i = 0; i < numCols - 1; i++)
-    {
-	    mat.push_back(l);
-    }
+	//вывод ошибок
+	if (numRows < 0)
+    	{
+		cerr<<"Произошла ошибка -> количество строк не может быть меньше нуля";
+    	}
+   	if (numCols < 0)
+	{
+		cerr<<"Произошла ошибка -> количество столбцев не может быть меньше нуля";
+    	}
+
+	//при нуле строк или столбцев, или всё вместе
+	if (numRows == 0 || numCols == 0)
+	{
+		rows = 0;
+		cols = 0;
+		
+	} 
+	else
+	{
+		rows = numRows;
+		cols = numCols;
+	}
 }
 
 void Matrix::Reset(int numRows, int numCols)
