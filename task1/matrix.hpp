@@ -12,7 +12,7 @@ private:
     std::vector<std::vector<int>> mat;
 public:
      Matrix() : rows(0), cols(0) {}
-    explicit Matrix(int rows, int cols);
+    explicit Matrix(int numRows, int numCols);
     
     Matrix(const Matrix& other) = default;
     Matrix& operator=(const Matrix& other) = default;
