@@ -6,7 +6,7 @@ using namespace std;
 Matrix::Matrix(int numRows, int numCols)
 {
 	//вывод ошибок
-	if (rows < 0 || cols < 0)
+	if (numRows < 0 || numCols < 0)
 	{
 		throw out_of_range("");
     	}
@@ -30,7 +30,7 @@ Matrix::Matrix(int numRows, int numCols)
 void Matrix::Reset(int numRows, int numCols)
 {
     //вывод ошибок
-	if (rows < 0 || cols < 0)
+	if (numRows < 0 || numCols < 0)
 	{
 		throw out_of_range("");
     	}
@@ -56,7 +56,7 @@ void Matrix::Reset(int numRows, int numCols)
 int Matrix::At(int row, int col) const
 {
     //вывод ошибок
-	if (row < 0 || row >= num_rows || col < 0 || col >= num_cols)
+	if (row < 0 || row >= rows || col < 0 || col >= cols)
 	{
 		throw out_of_range("");
     	}
@@ -66,7 +66,7 @@ int Matrix::At(int row, int col) const
 int& Matrix::At(int row, int col)
 {
     //вывод ошибок
-	if (row < 0 || row >= num_rows || col < 0 || col >= num_cols)
+	if (row < 0 || row >= rows || col < 0 || col >= cols)
 	{
 		throw out_of_range("");
     	}
