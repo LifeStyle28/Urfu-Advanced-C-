@@ -120,7 +120,7 @@ int Matrix::GetCols() const
 
 bool Matrix::operator==(const Matrix& lhs, const Matrix& rhs)
 {
-   	 return lhs.num_rows == rhs.num_rows && lhs.num_cols == rhs.num_cols && lhs.data == rhs.data;
+   	 return lhs.rows == rhs.rows && lhs.cols == rhs.cols && lhs.mat == rhs.mat;
 }
 
 bool Matrix::operator!=(const Matrix& lhs, const Matrix& rhs)
@@ -131,7 +131,7 @@ bool Matrix::operator!=(const Matrix& lhs, const Matrix& rhs)
 Matrix Matrix::operator+(const Matrix& lhs, const Matrix& rhs)
 {
 	if (lhs.GetRows() != rhs.GetRows() || lhs.GetCols() != rhs.GetCols()) {
-        throw invalid_argument("");
+        cerr<<"невозможный аргумент";
     }
     Matrix result(lhs.GetRows(), lhs.GetCols());
     for (int i = 0; i < lhs.GetRows(); ++i) {
