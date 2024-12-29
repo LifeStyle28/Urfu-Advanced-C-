@@ -19,7 +19,7 @@ public:
     
     Matrix(Matrix&& other) noexcept : rows(other.rows), cols(other.cols), mat(std::move(other.mat)) {
         other.rows = 0;
-        other.сols = 0;
+        other.cols = 0;
     }
     Matrix& operator=(Matrix&& other) noexcept {
         if (this != &other) {
