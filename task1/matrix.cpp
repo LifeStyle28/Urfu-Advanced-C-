@@ -118,73 +118,26 @@ int Matrix::GetCols() const
 
 
 
-bool Matrix::operator==(const Matrix& m2)
+bool Matrix::operator==(const Matrix& lhs, const Matrix& rhs)
 {
-   	 if (mat.size() == m2.GetRows() && mat[0].size() == m2.GetCols())
-    	{
-    		for (int i = 0; i < mat.size() - 1; i++)
-    		{
-    			for (int j = 0; j < mat[0].size() - 1; j++)
-    			{
-    				if (mat[i][j] != m2.At(i, j))
-    				{
-    					return false;
-    				}
-    			}
-    		}
-    		return true;
-	}
-    	else 
-	{
-    	return false;
-    	}
+   	 return lhs.num_rows == rhs.num_rows && lhs.num_cols == rhs.num_cols && lhs.data == rhs.data;
 }
 
-bool Matrix::operator!=(const Matrix& m2)
+bool Matrix::operator!=(const Matrix& lhs, const Matrix& rhs)
 {
-    	if (mat.size() == m2.GetRows() && mat[0].size() == m2.GetCols())
-	{
-	   	for (int i = 0; i < mat.size() - 1; i++)
-	    	{
-	    		for (int j = 0; j < mat[0].size() - 1; j++)
-	    		{
-	    			if (mat[i][j] != m2.At(i, j))
-	    			{
-	    				return true;
-	    			}
-	    		}
-	    	}
-	    	return false;
-	}
-	else 
-	{
-	    	return true;
-	}
+    	return !(lhs == rhs);
 }
 
-Matrix Matrix::operator+(const Matrix& m2)
+Matrix Matrix::operator+(const Matrix& lhs, const Matrix& rhs)
 {
-	try
-	{
-	    	if (mat.size() != m2.GetRows() || mat[0].size() != m2.GetCols())
-	    	{
-	    		throw 1;
-	    	}
-	    	else
-	    	{
-	    		Matrix mres(m2.GetRows(), m2.GetCols());
-	    		for (int i = 0; i < mres.mat.size() - 1; i++)
-	    		{
-	    			for (int j = 0; j < mres.mat[0].size() - 1; j++)
-	    			{
-	    				mres.At(i, j) = mat[i][j] + m2.At(i, j);
-	    			}
-	    		}
-	    		return mres;
-	    	}
-	}
-	catch (int e)
-	{
-	    	cout << "Can't sum matricies of different sizes";
-	}
+	if (lhs.GetRows() != rhs.GetRows() || lhs.GetCols() != rhs.GetCols()) {
+        throw invalid_argument("");
+    }
+    Matrix result(lhs.GetRows(), lhs.GetCols());
+    for (int i = 0; i < lhs.GetRows(); ++i) {
+        for (int j = 0; j < lhs.GetCols(); ++j) {
+            result.At(i, j) = lhs.At(i, j) + rhs.At(i, j);
+        }
+    }
+    return result;
 }
