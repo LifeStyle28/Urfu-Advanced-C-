@@ -1,6 +1,5 @@
 #include "matrix.hpp"
 #include <iostream>
-#include <cerr>
 using namespace std;
 
 Matrix::Matrix(int numRows, int numCols)
