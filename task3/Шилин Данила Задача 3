@@ -1,0 +1,100 @@
+#include "circular_queue.hpp"
+#include <vector>
+
+CircularQueue::CircularQueue(size_t size)
+{
+	// your implementation here
+CircularQueue::CircularQueue(size_t size) : capacity(size), size(0), front(0), rear(0) {
+ buffer.resize(size); // Pre-allocate exact size
+}
+
+bool CircularQueue::Push(int value)
+{
+    // your implementation here
+bool CircularQueue::Push(int value) {
+    if (Full()) {
+        return false;
+    }
+ buffer[rear] = value;
+ rear = (rear + 1) % capacity;
+ size++;
+    return true;
+}
+
+bool CircularQueue::Pop()
+{
+    // your implementation here
+bool CircularQueue::Pop() {
+    if (Empty()) {
+        return false;
+    }
+ front = (front + 1) % capacity;
+ size--;
+    return true;
+}
+
+int CircularQueue::Front() const
+{
+    // your implementation here
+int CircularQueue::Front() const {
+    if (Empty()) {
+        return -1;
+    }
+    return buffer[front];
+}
+
+int CircularQueue::Back() const
+{
+    // your implementation here
+int CircularQueue::Back() const {
+    if (Empty()) {
+        return -1;
+    }
+    return buffer[(rear - 1 + capacity) % capacity];
+}
+
+bool CircularQueue::Empty() const
+{
+    // your implementation here
+bool CircularQueue::Empty() const {
+    return size == 0;
+}
+
+bool CircularQueue::Full() const
+{
+    // your implementation here
+bool CircularQueue::Full() const {
+    return size == capacity;
+}
+
+#pragma once
+
+#include <cstddef>
+#include <vector>
+
+class CircularQueue {
+private:
+ std::vector<int> buffer; // Dynamic array to store elements
+    size_t capacity; // Maximum size of the queue
+    size_t size; // Current count of elements
+    size_t front; // Index of the front element
+    size_t rear; // Index of the rear element
+
+public:
+    CircularQueue(size_t size); // создать очередь с определенным размером буффера
+    bool Push(int value); // добавить значение в конец очереди (false, если очередь заполнена)
+    bool Pop(); // удалить значение из начала очереди (false, если очередь пустая)
+    int Front() const; // получить значение из начала очереди (-1, если очередь пустая)
+    int Back() const; // получить значение из конца очереди (-1, если очередь пустая)
+    bool Empty() const; // проверить пустая ли очередь
+    bool Full() const; // проверить заполнена ли очередь
+    CircularQueue(size_t size); // Constructor
+
+    bool Push(int value); // Add value to the end
+    bool Pop(); // Remove value from the front
+    int Front() const; // Get front value
+    int Back() const; // Get back value
+
+    bool Empty() const; // Check if empty
+    bool Full() const; // Check if full
+};
