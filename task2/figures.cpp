@@ -1,5 +1,7 @@
 #include "figures.hpp"
 
+static constexpr double PI = 3.14;
+
 std::unique_ptr<Figure> make_figure(FigureType type, double a, double b, double c) {
     switch (type) {
         case FigureType::TRIANGLE:
