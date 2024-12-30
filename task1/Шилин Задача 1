@@ -1,0 +1,158 @@
+#include "matrix.hpp"
+
+#include <stdexcept>
+
+Matrix::Matrix(int numRows, int numCols)
+{
+    // your implementation here
+using namespace std;
+
+Matrix::Matrix(int rows, int cols) {
+    if (rows < 0 || cols < 0) {
+        throw out_of_range("");
+    }
+    if (rows == 0 || cols == 0) {
+ num_rows = 0;
+ num_cols = 0;
+ data.clear();
+ } else {
+ num_rows = rows;
+ num_cols = cols;
+ data.assign(rows, vector<int>(cols, 0));
+    }
+}
+
+void Matrix::Reset(int numRows, int numCols)
+{
+    // your implementation here
+void Matrix::Reset(int rows, int cols) {
+    if (rows < 0 || cols < 0) {
+        throw out_of_range("");
+    }
+    if (rows == 0 || cols == 0) {
+        num_rows = 0;
+        num_cols = 0;
+        data.clear();
+    } else {
+        num_rows = rows;
+        num_cols = cols;
+        data.assign(rows, vector<int>(cols, 0));
+    }
+}
+
+int& Matrix::At(int row, int col)
+{
+    // your implementation here
+int Matrix::At(int row, int col) const {
+    if (row < 0 || row >= num_rows || col < 0 || col >= num_cols) {
+        throw out_of_range("");
+    }
+    return data[row][col];
+}
+
+const int& Matrix::At(int row, int col) const
+{
+    // your implementation here
+int& Matrix::At(int row, int col) {
+    if (row < 0 || row >= num_rows || col < 0 || col >= num_cols) {
+        throw out_of_range("");
+    }
+    return data[row][col];
+}
+
+int Matrix::GetRows() const
+{
+    // your implementation here
+int Matrix::GetRows() const {
+    return num_rows;
+}
+
+int Matrix::GetCols() const
+{
+    // your implementation here
+int Matrix::GetCols() const {
+    return num_cols;
+}
+
+bool Matrix::operator==(const Matrix& m2)
+{
+    // your implementation here
+bool operator==(const Matrix& lhs, const Matrix& rhs) {
+    return lhs.num_rows == rhs.num_rows && lhs.num_cols == rhs.num_cols && lhs.data == rhs.data;
+}
+
+bool Matrix::operator!=(const Matrix& m2)
+{
+    // your implementation here
+bool operator!=(const Matrix& lhs, const Matrix& rhs) {
+    return !(lhs == rhs);
+}
+
+Matrix Matrix::operator+(const Matrix& m2)
+{
+    // your implementation here
+Matrix operator+(const Matrix& lhs, const Matrix& rhs) {
+    if (lhs.GetRows() != rhs.GetRows() || lhs.GetCols() != rhs.GetCols()) {
+        throw invalid_argument("");
+    }
+    Matrix result(lhs.GetRows(), lhs.GetCols());
+    for (int i = 0; i < lhs.GetRows(); ++i) {
+        for (int j = 0; j < lhs.GetCols(); ++j) {
+            result.At(i, j) = lhs.At(i, j) + rhs.At(i, j);
+        }
+    }
+    return result;
+}
+
+#pragma once
+#include <iostream>
+#include <vector>
+#include <stdexcept>
+
+class Matrix
+{
+class Matrix {
+public:
+    Matrix() = default;
+    Matrix(int numRows, int numCols);
+    Matrix() : num_rows(0), num_cols(0) {}
+    explicit Matrix(int rows, int cols);
+
+    Matrix(const Matrix& other) = default;
+    Matrix& operator=(const Matrix& other) = default;
+
+    Matrix(Matrix&& other) noexcept : num_rows(other.num_rows), num_cols(other.num_cols), data(std::move(other.data)) {
+        other.num_rows = 0;
+        other.num_cols = 0;
+    }
+    Matrix& operator=(Matrix&& other) noexcept {
+        if (this != &other) {
+            num_rows = other.num_rows;
+            num_cols = other.num_cols;
+            data = std::move(other.data);
+            other.num_rows = 0;
+            other.num_cols = 0;
+        }
+        return *this;
+    }
+
+    void Reset(int numRows, int numCols);
+    void Reset(int rows, int cols);
+    int At(int row, int col) const;
+    int& At(int row, int col);
+    const int& At(int row, int col) const;
+    int GetRows() const;
+    int GetCols() const;
+
+    bool operator==(const Matrix& m2);
+    bool operator!=(const Matrix& m2);
+    Matrix operator+(const Matrix& m2);
+    friend bool operator==(const Matrix& lhs, const Matrix& rhs);
+    friend bool operator!=(const Matrix& lhs, const Matrix& rhs);
+    friend Matrix operator+(const Matrix& lhs, const Matrix& rhs);
+
+private:
+    int num_rows;
+    int num_cols;
+    std::vector<std::vector<int>> data;
+};
