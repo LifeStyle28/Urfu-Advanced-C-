@@ -1,71 +1,98 @@
-Matrix::Matrix(int numRows, int numCols)
-{
-    Reset(numRows, numCols); 
-}
+#include "matrix.hpp"
+#include <stdexcept>
 
-void Matrix::Reset(int numRows, int numCols)
-{
-    numRows = nrows;
-    numCols = ncols;
-    data.assign(nrows, vector<int>(ncols, 0));
-    if (nrows < 0 || ncols < 0)
-    {
-    	throw out_of_range("Error: Negative number");
+Matrix::Matrix(int rows, int cols) {
+    if (rows < 0 || cols < 0) {
+        throw std::out_of_range("");
+    }
+    if (rows == 0 || cols == 0) {
+        num_rows = 0;
+        num_cols = 0;
+        data.clear();
+    } else {
+        num_rows = rows;
+        num_cols = cols;
+        data.assign(rows, std::vector<int>(cols, 0));
     }
 }
 
-int& Matrix::At(int row, int col)
-{
-    if (row < 0 || col < 0 || row >= numRows || col >= numCols)
-    {
-    	throw out_of_range("Error: Out of range");
+void Matrix::Reset(int rows, int cols) {
+    if (rows < 0 || cols < 0) {
+        throw std::out_of_range("");
+    }
+    if (rows == 0 || cols == 0) {
+        num_rows = 0;
+        num_cols = 0;
+        data.clear();
+    } else {
+        num_rows = rows;
+        num_cols = cols;
+        data.assign(rows, std::vector<int>(cols, 0));
+    }
+}
+
+int Matrix::At(int row, int col) const {
+    if (row < 0 || row >= num_rows || col < 0 || col >= num_cols) {
+        throw std::out_of_range("");
     }
     return data[row][col];
 }
 
-const int& Matrix::At(int row, int col) const
-{
-    if (row < 0 || col < 0 || row >= numRows || col >= numCols)
-    {
-    	throw out_of_range("Error: Out of range");
+int& Matrix::At(int row, int col) {
+    if (row < 0 || row >= num_rows || col < 0 || col >= num_cols) {
+        throw std::out_of_range("");
     }
     return data[row][col];
 }
 
-int Matrix::GetRows() const
-{
-   return(numRows); 
+int Matrix::GetRows() const {
+    return num_rows;
 }
 
-int Matrix::GetCols() const
-{
-   return(numCols); 
+int Matrix::GetCols() const {
+    return num_cols;
 }
 
-bool Matrix::operator==(const Matrix& m2)
-{
-    if (numCols != other.numCols || numRows != other.numRows)
-	    return false;
-    for (int i = 0; i < numRows; i++)
-    	for (int j = 0; j < numCols; j++)
-	    	if (At(i, j) != other.At(i, j))
-		    	return false;
-    return true;
+std::istream& operator>>(std::istream& in, Matrix& matrix) {
+    int rows, cols;
+    in >> rows >> cols;
+    matrix.Reset(rows, cols);
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            in >> matrix.At(i, j);
+        }
+    }
+    return in;
 }
 
-bool Matrix::operator!=(const Matrix& m2)
-{
-    return !(*this == m2);
+std::ostream& operator<<(std::ostream& out, const Matrix& matrix) {
+    out << matrix.GetRows() << " " << matrix.GetCols() << "\n";
+    for (int i = 0; i < matrix.GetRows(); ++i) {
+        for (int j = 0; j < matrix.GetCols(); ++j) {
+            out << matrix.At(i, j) << " ";
+        }
+        out << "\n";
+    }
+    return out;
 }
 
-Matrix Matrix::operator+(const Matrix& m2)
-{
+bool operator==(const Matrix& lhs, const Matrix& rhs) {
+    return lhs.num_rows == rhs.num_rows && lhs.num_cols == rhs.num_cols && lhs.data == rhs.data;
+}
 
-    if (numRows != other.num_rows || numCols != other.num_cols)
-	    throw invalid_argument("Error: Different matrix");
-    Matrix result(numRows, numCols);
-    for (int i = 0; i < numRows; i++)
-	    for (int j = 0; j < numCols; j++)
-	    	result.At(i, j) = At(i, j) + other.At(i, j);
-    return result; 
+bool operator!=(const Matrix& lhs, const Matrix& rhs) {
+    return !(lhs == rhs);
+}
+
+Matrix operator+(const Matrix& lhs, const Matrix& rhs) {
+    if (lhs.GetRows() != rhs.GetRows() || lhs.GetCols() != rhs.GetCols()) {
+        throw std::invalid_argument("");
+    }
+    Matrix result(lhs.GetRows(), lhs.GetCols());
+    for (int i = 0; i < lhs.GetRows(); ++i) {
+        for (int j = 0; j < lhs.GetCols(); ++j) {
+            result.At(i, j) = lhs.At(i, j) + rhs.At(i, j);
+        }
+    }
+    return result;
 }
