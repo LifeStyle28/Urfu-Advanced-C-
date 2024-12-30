@@ -1,48 +1,71 @@
-#include "matrix.hpp"
-
-#include <stdexcept>
-
 Matrix::Matrix(int numRows, int numCols)
 {
-    // your implementation here
+    Reset(numRows, numCols); 
 }
 
 void Matrix::Reset(int numRows, int numCols)
 {
-    // your implementation here
+    numRows = nrows;
+    numCols = ncols;
+    data.assign(nrows, vector<int>(ncols, 0));
+    if (nrows < 0 || ncols < 0)
+    {
+    	throw out_of_range("Error: Negative number");
+    }
 }
 
 int& Matrix::At(int row, int col)
 {
-    // your implementation here
+    if (row < 0 || col < 0 || row >= numRows || col >= numCols)
+    {
+    	throw out_of_range("Error: Out of range");
+    }
+    return data[row][col];
 }
 
 const int& Matrix::At(int row, int col) const
 {
-    // your implementation here
+    if (row < 0 || col < 0 || row >= numRows || col >= numCols)
+    {
+    	throw out_of_range("Error: Out of range");
+    }
+    return data[row][col];
 }
 
 int Matrix::GetRows() const
 {
-    // your implementation here
+   return(numRows); 
 }
 
 int Matrix::GetCols() const
 {
-    // your implementation here
+   return(numCols); 
 }
 
 bool Matrix::operator==(const Matrix& m2)
 {
-    // your implementation here
+    if (numCols != other.numCols || numRows != other.numRows)
+	    return false;
+    for (int i = 0; i < numRows; i++)
+    	for (int j = 0; j < numCols; j++)
+	    	if (At(i, j) != other.At(i, j))
+		    	return false;
+    return true;
 }
 
 bool Matrix::operator!=(const Matrix& m2)
 {
-    // your implementation here
+    return !(*this == m2);
 }
 
 Matrix Matrix::operator+(const Matrix& m2)
 {
-    // your implementation here
+
+    if (numRows != other.num_rows || numCols != other.num_cols)
+	    throw invalid_argument("Error: Different matrix");
+    Matrix result(numRows, numCols);
+    for (int i = 0; i < numRows; i++)
+	    for (int j = 0; j < numCols; j++)
+	    	result.At(i, j) = At(i, j) + other.At(i, j);
+    return result; 
 }
