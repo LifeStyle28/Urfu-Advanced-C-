@@ -1,5 +1,7 @@
 #include "matrix.hpp"
 
+#include <stdexcept>
+
 Matrix::Matrix(int numRows, int numCols)
 {
     Reset(numRows, numCols);
