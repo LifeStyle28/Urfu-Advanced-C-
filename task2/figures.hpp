@@ -36,10 +36,12 @@ class Triangle : public Figure
 {
 public:
     Triangle(double a, double b, double c) : a(a), b(b), c(c) {
-        if (a <= 0 || b <= 0 || c <= 0) {
+        if (a <= 0 || b <= 0 || c <= 0) 
+        { 
             throw LessThanZeroParam("Sides must be greater than zero");
         }
-        if (a + b <= c || a + c <= b || b + c <= a) {
+        if (a + b <= c || a + c <= b || b + c <= a) 
+        { 
             throw WrongTriangle("Invalid triangle sides");
         }
     }
@@ -74,7 +76,18 @@ private:
     double radius;
 };
 
-std::unique_ptr<Figure> make_figure(FigureType type, double a, double b = 0, double c = 0);
+std::unique_ptr<Figure> make_figure(FigureType type, double a, double b = 0, double c = 0) {
+    switch (type) {
+        case FigureType::TRIANGLE:
+            return std::make_unique<Triangle>(a, b, c);
+        case FigureType::CIRCLE:
+            return std::make_unique<Circle>(a);
+        case FigureType::RECTANGLE:
+            return std::make_unique<Rect>(a, b);
+        default:
+            throw std::invalid_argument("Unknown figure type");
+    }
+}
 
 class WrongTriangle : public std::invalid_argument
 {
