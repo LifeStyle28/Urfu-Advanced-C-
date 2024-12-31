@@ -1,4 +1,4 @@
-#include "lab2.hpp"
+#include "figures.hpp"
 #include <cmath>
 
 
