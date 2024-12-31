@@ -9,7 +9,7 @@ Matrix::Matrix(int numRows, int numCols)
 
 void Matrix::Reset(int numRows, int numCols)
 {
-    if (numRows <= 0 || numCols <= 0) {
+    if (numRows <= 0 && numCols <= 0) {
         this->numRows = 0;
         this->numCols = 0;
         data.clear();
@@ -30,7 +30,7 @@ int& Matrix::At(int row, int col)
 
 const int& Matrix::At(int row, int col) const
 {
-     if (row < 0 || row >= numRows || col < 0 || col >= numCols) {
+    if (row < 0 || row >= numRows || col < 0 || col >= numCols) {
         throw std::out_of_range("Index out of range");
     }
     return data[row][col];
