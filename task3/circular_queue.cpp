@@ -1,36 +1,74 @@
 #include "circular_queue.hpp"
+#include <vector>
 
-CircularQueue::CircularQueue(size_t size)
+
+//LET'S GOOOOOOOOOO, ЗАПОЛНИМ ЭТО КОЛЕЧКО *аранайка moment*
+bool CircularQueue::Push(int value) 
 {
-	// your implementation here
+   if (Full()) 
+   {
+      return false;
+   }
+   buffer[zad] = value;
+   zad = (zad + 1) % max_razmer;
+   now_rozmer++;
+   return true;
 }
 
-bool CircularQueue::Push(int value)
+
+//Это не просто смело, это грустно, НАШИ РЯДЫ РЕДЕЮТ!!!!!!! (╯°□°)╯︵ ┻━┻
+bool CircularQueue::Pop() 
 {
-    // your implementation here
+   if (Empty()) 
+   {
+      return false;
+   }
+   pered = (pered + 1) % max_razmer;
+   now_rozmer--;
+   return true;
 }
 
-bool CircularQueue::Pop()
+
+
+//НАЙДИТЕ ПЕРВОЙ ЧИСЛО!!!! НАЙДИТЕ РОДИТЕЛЕЙ ПЕРВОГО ЧИСЛА, ПЕРЕВЕРНИТЕ ВСЁ ВЕРХ ДНОМ, НО НАЙДИТЕ ЕГО!!!!!!!!!!!!!!! 	୧((#Φ益Φ#))୨
+int CircularQueue::Front() const 
 {
-    // your implementation here
+   if (Empty()) 
+   {
+      return -1;
+   }
+   return buffer[pered];
 }
 
-int CircularQueue::Front() const
+
+
+//НАЙДИТЕ ПОСЛЕДНЕЕ ЧИСЛО!!! Но в этот рас спокойней (ᓀ‿ᓀ)
+int CircularQueue::Back() const 
 {
-    // your implementation here
+   if (Empty()) 
+   {
+      return -1;
+   }
+   return buffer[(zad - 1 + max_razmer) % max_razmer];
 }
 
-int CircularQueue::Back() const
+
+
+//Ля, Михалыч, очеред пуста, мы рАзОрИмСя!!!АААААА, у меня 5 детей, что мне делать, МиХаЛыЧ??? .･ﾟﾟ･(／ Ｏ＼)･ﾟﾟ･.
+bool CircularQueue::Empty() const 
 {
-    // your implementation here
+   return now_rozmer == 0;
 }
 
-bool CircularQueue::Empty() const
+
+
+//Кружка, что full of beer -> это счастье, monami 	( ￣▽￣)[] [](≧▽≦ )
+bool CircularQueue::Full() const 
 {
-    // your implementation here
+   return now_rozmer == max_razmer;
 }
 
-bool CircularQueue::Full() const
+int main()
 {
-    // your implementation here
+   return 0;
 }
