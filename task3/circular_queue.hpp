@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstddef>
-
+#include <vector>
 class CircularQueue {
 public:
     CircularQueue(size_t size); // создать очередь с определенным размером буффера
@@ -11,4 +11,11 @@ public:
     int Back() const; // получить значение из конца очереди (-1, если очередь пустая)
     bool Empty() const; // проверить пустая ли очередь
     bool Full() const; // проверить заполнена ли очередь
+
+private:
+    std::vector<int> buffer; 
+    size_t head;   
+    size_t tail;    
+    size_t capacity; 
+    size_t size;   
 };
