@@ -4,25 +4,6 @@
 
 using namespace std;
 
-class Matrix {
-public:
-    Matrix(int rows, int cols);
-    void Reset(int rows, int cols);
-    int& At(int row, int col);
-    const int& At(int row, int col) const;
-    int GetRows() const;
-    int GetCols() const;
-    
-    friend bool operator==(const Matrix& lhs, const Matrix& rhs);
-    friend bool operator!=(const Matrix& lhs, const Matrix& rhs);
-    friend Matrix operator+(const Matrix& lhs, const Matrix& rhs);
-    
-private:
-    int num_rows;
-    int num_cols;
-    vector<vector<int>> data;
-};
-
 Matrix::Matrix(int rows, int cols) {
     if (rows < 0 || cols < 0) {
         throw out_of_range("Rows and columns must be non-negative");
