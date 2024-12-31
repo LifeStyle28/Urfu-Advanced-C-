@@ -1,88 +1,70 @@
-#pragma once
-
 #include <memory>
 #include <stdexcept>
-#include <cmath>
 
-enum class FigureType {
+// Make PI accessible to tests and other code
+constexpr double PI = 3.14;
+
+enum class FigureType
+{
     TRIANGLE,
-    CIRCLE,
-    RECTANGLE,
-};
-
-class WrongTriangle : public std::invalid_argument {
-public:
-    explicit WrongTriangle(const std::string& message) : std::invalid_argument(message) {}
-};
-
-class LessThanZeroParam : public std::invalid_argument {
-public:
-    explicit LessThanZeroParam(const std::string& message) : std::invalid_argument(message) {}
-};
+	@@ -12,30 +15,59 @@ enum class FigureType
 
 class Figure {
 public:
+    virtual ~Figure() = default;  // Add virtual destructor for proper cleanup
     virtual FigureType Type() const = 0;
     virtual double Perimeter() const = 0;
     virtual double Area() const = 0;
-    virtual ~Figure() = default;
 };
 
-class Rect : public Figure {
-public:
-    Rect(double width, double height) : width(width), height(height) {}
-
-    FigureType Type() const override { return FigureType::RECTANGLE; }
-    double Perimeter() const override { return 2 * (width + height); }
-    double Area() const override { return width * height; }
-
+class Rect : public Figure
+{
 private:
     double width;
     double height;
+
+public:
+    Rect(double a, double b);
+    FigureType Type() const override;
+    double Perimeter() const override;
+    double Area() const override;
 };
 
-class Triangle : public Figure {
-public:
-    Triangle(double a, double b, double c) : a(a), b(b), c(c) {
-        if (a <= 0 || b <= 0 || c <= 0) { 
-            throw LessThanZeroParam("Sides must be greater than zero");
-        }
-        if (a + b <= c || a + c <= b || b + c <= a) {
-            throw WrongTriangle("Invalid triangle sides");
-        }
-    }
-
-    FigureType Type() const override { return FigureType::TRIANGLE; }
-    double Perimeter() const override { return a + b + c; }
-    double Area() const override {
-        double s = Perimeter() / 2;
-        return std::sqrt(s * (s - a) * (s - b) * (s - c));
-    }
-
+class Triangle : public Figure
+{
 private:
-    double a;
-    double b;
-    double c;
+    double a, b, c;
+
+public:
+    Triangle(double side_a, double side_b, double side_c);
+    FigureType Type() const override;
+    double Perimeter() const override;
+    double Area() const override;
 };
 
-class Circle : public Figure {
-public:
-    static constexpr double PI = 3.14; // Определение PI здесь
-    
-    Circle(double radius) : radius(radius) {
-        if (radius <= 0) {
-            throw LessThanZeroParam("Radius must be greater than zero");
-        }
-    }
-
-    FigureType Type() const override { return FigureType::CIRCLE; }
-    double Perimeter() const override { return 2 * PI * radius; }
-    double Area() const override { return PI * radius * radius; }
-
+class Circle : public Figure
+{
 private:
     double radius;
+
+public:
+    Circle(double r);
+    FigureType Type() const override;
+    double Perimeter() const override;
+    double Area() const override;
 };
 
 std::unique_ptr<Figure> make_figure(FigureType type, double a, double b = 0, double c = 0);
 
+class WrongTriangle : public std::invalid_argument
+{
+public:
+    using std::invalid_argument::invalid_argument;
+};
+
+class LessThanZeroParam : public std::invalid_argument
+{
+public:
+    using std::invalid_argument::invalid_argument;
+};
 
