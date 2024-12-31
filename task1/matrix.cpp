@@ -1,11 +1,31 @@
 #include "matrix.hpp"
 #include <stdexcept>
+#include <vector>
 
 using namespace std;
 
+class Matrix {
+public:
+    Matrix(int rows, int cols);
+    void Reset(int rows, int cols);
+    int& At(int row, int col);
+    const int& At(int row, int col) const;
+    int GetRows() const;
+    int GetCols() const;
+    
+    friend bool operator==(const Matrix& lhs, const Matrix& rhs);
+    friend bool operator!=(const Matrix& lhs, const Matrix& rhs);
+    friend Matrix operator+(const Matrix& lhs, const Matrix& rhs);
+    
+private:
+    int num_rows;
+    int num_cols;
+    vector<vector<int>> data;
+};
+
 Matrix::Matrix(int rows, int cols) {
     if (rows < 0 || cols < 0) {
-        throw out_of_range("");
+        throw out_of_range("Rows and columns must be non-negative");
     }
     if (rows == 0 || cols == 0) {
         num_rows = 0;
@@ -20,7 +40,7 @@ Matrix::Matrix(int rows, int cols) {
 
 void Matrix::Reset(int rows, int cols) {
     if (rows < 0 || cols < 0) {
-        throw out_of_range("");
+        throw out_of_range("Rows and columns must be non-negative");
     }
     if (rows == 0 || cols == 0) {
         num_rows = 0;
@@ -35,14 +55,14 @@ void Matrix::Reset(int rows, int cols) {
 
 int Matrix::At(int row, int col) const {
     if (row < 0 || row >= num_rows || col < 0 || col >= num_cols) {
-        throw out_of_range("");
+        throw out_of_range("Index out of range");
     }
     return data[row][col];
 }
 
 int& Matrix::At(int row, int col) {
     if (row < 0 || row >= num_rows || col < 0 || col >= num_cols) {
-        throw out_of_range("");
+        throw out_of_range("Index out of range");
     }
     return data[row][col];
 }
@@ -65,7 +85,7 @@ bool operator!=(const Matrix& lhs, const Matrix& rhs) {
 
 Matrix operator+(const Matrix& lhs, const Matrix& rhs) {
     if (lhs.GetRows() != rhs.GetRows() || lhs.GetCols() != rhs.GetCols()) {
-        throw invalid_argument("");
+        throw invalid_argument("Matrices must have the same dimensions for addition");
     }
     Matrix result(lhs.GetRows(), lhs.GetCols());
     for (int i = 0; i < lhs.GetRows(); ++i) {
