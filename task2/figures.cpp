@@ -83,8 +83,3 @@ std::unique_ptr<Figure> make_figure(FigureType type, double a, double b, double 
 
    return nullptr;
 }
-
-int main()
-{
-   return 0;
-}
