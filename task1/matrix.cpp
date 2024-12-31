@@ -1,48 +1,116 @@
 #include "matrix.hpp"
-
+#include <iostream>
 #include <stdexcept>
+using namespace std;
 
 Matrix::Matrix(int numRows, int numCols)
 {
-    // your implementation here
+	//вывод ошибок
+	if (numRows < 0 || numCols < 0)
+	{
+		throw out_of_range("");
+    	}
+
+	//при нуле строк или столбцев, или всё вместе
+	if (numRows == 0 || numCols == 0)
+	{
+		rows = 0;
+		cols = 0;
+		mat.clear();
+	} 
+	//полноценное создание класса
+	else
+	{
+		rows = numRows;
+		cols = numCols;
+		mat.assign(rows, vector<int>(cols,0));
+	}
 }
 
 void Matrix::Reset(int numRows, int numCols)
 {
-    // your implementation here
+    //вывод ошибок
+	if (numRows < 0 || numCols < 0)
+	{
+		throw out_of_range("");
+    	}
+
+	//при нуле строк или столбцев, или всё вместе
+	if (numRows == 0 || numCols == 0)
+	{
+		rows = 0;
+		cols = 0;
+		mat.clear();
+	} 
+	//полноценное создание класса
+	else
+	{
+		rows = numRows;
+		cols = numCols;
+		mat.assign(rows, vector<int>(cols,0));
+	}
+}
+
+
+
+int Matrix::At(int row, int col) const
+{
+    //вывод ошибок
+	if (row < 0 || row >= rows || col < 0 || col >= cols)
+	{
+		throw out_of_range("");
+    	}
+    	return mat[row][col];
 }
 
 int& Matrix::At(int row, int col)
 {
-    // your implementation here
+    //вывод ошибок
+	if (row < 0 || row >= rows || col < 0 || col >= cols)
+	{
+		throw out_of_range("");
+    	}
+    	return mat[row][col];
+    
 }
 
-const int& Matrix::At(int row, int col) const
-{
-    // your implementation here
-}
+
 
 int Matrix::GetRows() const
 {
-    // your implementation here
+     return rows;
 }
 
 int Matrix::GetCols() const
 {
-    // your implementation here
+   return cols;
 }
 
-bool Matrix::operator==(const Matrix& m2)
+
+
+bool operator==(const Matrix& lhs, const Matrix& rhs)
 {
-    // your implementation here
+   	 return lhs.rows == rhs.rows && lhs.cols == rhs.cols && lhs.mat == rhs.mat;
 }
 
-bool Matrix::operator!=(const Matrix& m2)
+bool operator!=(const Matrix& lhs, const Matrix& rhs)
 {
-    // your implementation here
+    	return !(lhs == rhs);
 }
 
-Matrix Matrix::operator+(const Matrix& m2)
+Matrix operator+(const Matrix& lhs, const Matrix& rhs)
 {
-    // your implementation here
+	if (lhs.GetRows() != rhs.GetRows() || lhs.GetCols() != rhs.GetCols()) 
+	{
+        	throw invalid_argument("");
+    	}
+    	Matrix result(lhs.GetRows(), lhs.GetCols());
+    	for (int i = 0; i < lhs.GetRows(); ++i) 
+		{
+        		for (int j = 0; j < lhs.GetCols(); ++j) 
+			{
+            			result.At(i, j) = lhs.At(i, j) + rhs.At(i, j);
+        		}
+    		}
+    	return result;
 }
