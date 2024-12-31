@@ -1,70 +1,69 @@
+#pragma once
+
 #include <memory>
 #include <stdexcept>
 
-// Make PI accessible to tests and other code
-constexpr double PI = 3.14;
+static constexpr double PI = 3.14;
 
-enum class FigureType
-{
-    TRIANGLE,
-	@@ -12,30 +15,59 @@ enum class FigureType
-
+enum class FigureType {
+    TRIANGLE,    
+    CIRCLE,      
+    RECTANGLE    
+};
 class Figure {
 public:
-    virtual ~Figure() = default;  // Add virtual destructor for proper cleanup
     virtual FigureType Type() const = 0;
     virtual double Perimeter() const = 0;
     virtual double Area() const = 0;
+    virtual ~Figure() = default;
 };
-
-class Rect : public Figure
-{
-private:
-    double width;
-    double height;
-
+class Rect : public Figure {
 public:
-    Rect(double a, double b);
+    Rect(double width, double height);
     FigureType Type() const override;
     double Perimeter() const override;
     double Area() const override;
+private:
+    double width;    
+    double height;   
 };
 
-class Triangle : public Figure
-{
-private:
-    double a, b, c;
-
+class Triangle : public Figure {
 public:
-    Triangle(double side_a, double side_b, double side_c);
+    Triangle(double a, double b, double c);
     FigureType Type() const override;
     double Perimeter() const override;
     double Area() const override;
+
+private:
+    double a;  
+    double b;   
+    double c;   
 };
 
-class Circle : public Figure
-{
-private:
-    double radius;
-
+class Circle : public Figure {
 public:
-    Circle(double r);
+    Circle(double radius);
     FigureType Type() const override;
     double Perimeter() const override;
     double Area() const override;
+
+private:
+    double radius; 
 };
+
 
 std::unique_ptr<Figure> make_figure(FigureType type, double a, double b = 0, double c = 0);
 
-class WrongTriangle : public std::invalid_argument
-{
+
+class WrongTriangle : public std::invalid_argument {
 public:
-    using std::invalid_argument::invalid_argument;
+    WrongTriangle() : std::invalid_argument("Invalid triangle parameters") {}
 };
 
-class LessThanZeroParam : public std::invalid_argument
-{
+
+class LessThanZeroParam : public std::invalid_argument {
 public:
-    using std::invalid_argument::invalid_argument;
+    LessThanZeroParam() : std::invalid_argument("Parameters must be greater than zero") {}
 };
 
