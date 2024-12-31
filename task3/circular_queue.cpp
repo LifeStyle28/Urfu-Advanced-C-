@@ -44,7 +44,3 @@ bool CircularQueue::Empty() const {
 bool CircularQueue::Full() const {
     return size == capacity; 
 }
-bool CircularQueue::Full() const
-{
-    // your implementation here
-}
