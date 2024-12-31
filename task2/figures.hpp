@@ -3,11 +3,21 @@
 #include <memory>
 #include <stdexcept>
 #include <cmath>
-enum class FigureType
-{
+
+enum class FigureType {
     TRIANGLE,
     CIRCLE,
     RECTANGLE,
+};
+
+class WrongTriangle : public std::invalid_argument {
+public:
+    explicit WrongTriangle(const std::string& message) : std::invalid_argument(message) {}
+};
+
+class LessThanZeroParam : public std::invalid_argument {
+public:
+    explicit LessThanZeroParam(const std::string& message) : std::invalid_argument(message) {}
 };
 
 class Figure {
@@ -18,8 +28,7 @@ public:
     virtual ~Figure() = default;
 };
 
-class Rect : public Figure
-{
+class Rect : public Figure {
 public:
     Rect(double width, double height) : width(width), height(height) {}
 
@@ -32,16 +41,13 @@ private:
     double height;
 };
 
-class Triangle : public Figure
-{
+class Triangle : public Figure {
 public:
     Triangle(double a, double b, double c) : a(a), b(b), c(c) {
-        if (a <= 0 || b <= 0 || c <= 0) 
-        { 
+        if (a <= 0 || b <= 0 || c <= 0) { 
             throw LessThanZeroParam("Sides must be greater than zero");
         }
-        if (a + b <= c || a + c <= b || b + c <= a) 
-        { 
+        if (a + b <= c || a + c <= b || b + c <= a) {
             throw WrongTriangle("Invalid triangle sides");
         }
     }
@@ -59,9 +65,10 @@ private:
     double c;
 };
 
-class Circle : public Figure
-{
+class Circle : public Figure {
 public:
+    static constexpr double PI = 3.14; // Определение PI здесь
+    
     Circle(double radius) : radius(radius) {
         if (radius <= 0) {
             throw LessThanZeroParam("Radius must be greater than zero");
@@ -76,28 +83,6 @@ private:
     double radius;
 };
 
-std::unique_ptr<Figure> make_figure(FigureType type, double a, double b = 0, double c = 0) {
-    switch (type) {
-        case FigureType::TRIANGLE:
-            return std::make_unique<Triangle>(a, b, c);
-        case FigureType::CIRCLE:
-            return std::make_unique<Circle>(a);
-        case FigureType::RECTANGLE:
-            return std::make_unique<Rect>(a, b);
-        default:
-            throw std::invalid_argument("Unknown figure type");
-    }
-}
+std::unique_ptr<Figure> make_figure(FigureType type, double a, double b = 0, double c = 0);
 
-class WrongTriangle : public std::invalid_argument
-{
-public:
-    explicit WrongTriangle(const std::string& message) : std::invalid_argument(message) {}
-};
-
-class LessThanZeroParam : public std::invalid_argument
-{
-public:
-    explicit LessThanZeroParam(const std::string& message) : std::invalid_argument(message) {}
-};
 
