@@ -1,11 +1,10 @@
 #include "figures.hpp"
 #include <cmath>
+#include <stdexcept>
 
-constexpr double PI = 3.14;
-
-Rect::Rect(double a, double b) : width(a), height(b) {
-    if (a < 0 || b < 0) {
-        throw LessThanZeroParam("Dimensions cannot be negative");
+Rect::Rect(double width, double height) : width(width), height(height) {
+    if (width < 0 || height < 0) {
+        throw LessThanZeroParam();
     }
 }
 
@@ -21,13 +20,12 @@ double Rect::Area() const {
     return width * height;
 }
 
-Triangle::Triangle(double side_a, double side_b, double side_c) 
-    : a(side_a), b(side_b), c(side_c) {
-    if (side_a < 0 || side_b < 0 || side_c < 0) {
-        throw LessThanZeroParam("Sides cannot be negative");
+Triangle::Triangle(double a, double b, double c) : a(a), b(b), c(c) {
+    if (a < 0 || b < 0 || c < 0) {
+        throw LessThanZeroParam();
     }
-    if (side_a + side_b <= side_c || side_b + side_c <= side_a || side_a + side_c <= side_b) {
-        throw WrongTriangle("Invalid triangle sides");
+    if (a + b <= c || a + c <= b || b + c <= a) {
+        throw WrongTriangle();
     }
 }
 
@@ -40,13 +38,13 @@ double Triangle::Perimeter() const {
 }
 
 double Triangle::Area() const {
-    double s = Perimeter() / 2;
-    return std::sqrt(s * (s - a) * (s - b) * (s - c));
+    double p = Perimeter() / 2;
+    return std::sqrt(p * (p - a) * (p - b) * (p - c));
 }
 
-Circle::Circle(double r) : radius(r) {
-    if (r < 0) {
-        throw LessThanZeroParam("Radius cannot be negative");
+Circle::Circle(double radius) : radius(radius) {
+    if (radius < 0) {
+        throw LessThanZeroParam();
     }
 }
 
@@ -64,23 +62,17 @@ double Circle::Area() const {
 
 std::unique_ptr<Figure> make_figure(FigureType type, double a, double b, double c) {
     if (a < 0 || b < 0 || c < 0) {
-        throw LessThanZeroParam("Parameters must be non-negative");
+        throw LessThanZeroParam();
     }
 
     switch (type) {
         case FigureType::RECTANGLE:
             return std::make_unique<Rect>(a, b);
-
-        case FigureType::TRIANGLE:
-            if (a + b <= c || b + c <= a || a + c <= b) {
-                throw WrongTriangle("Invalid triangle sides");
-            }
-            return std::make_unique<Triangle>(a, b, c);
-
         case FigureType::CIRCLE:
             return std::make_unique<Circle>(a);
-
+        case FigureType::TRIANGLE:
+            return std::make_unique<Triangle>(a, b, c);
         default:
-            throw std::invalid_argument("Unknown figure type");
+            return nullptr;
     }
 }
