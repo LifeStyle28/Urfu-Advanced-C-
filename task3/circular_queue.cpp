@@ -2,35 +2,66 @@
 
 CircularQueue::CircularQueue(size_t size)
 {
-	// your implementation here
+	CircularQueue::CircularQueue(size_t max_size) : {
+    mass.resize(max_size); 
 }
 
 bool CircularQueue::Push(int value)
 {
-    // your implementation here
+    if (Full()) {
+        return false;
+    }
+    else{
+    mass[end] = value;
+    end = (end + 1) % capacity;
+    end++;
+    return true;
+    }
 }
 
 bool CircularQueue::Pop()
 {
-    // your implementation here
+    if (Full()) {
+        return false;
+    }
+    else{
+    end = (end - 1) % capacity;
+    size--;
+    return true;
+    }
 }
 
 int CircularQueue::Front() const
 {
-    // your implementation here
+    if(Empty())
+    {
+	    return -1;
+    }
+	else
+    {
+	    return mass[front];
+    }
 }
 
 int CircularQueue::Back() const
 {
-    // your implementation here
+     if(Empty())
+    {
+	    return -1;
+    }
+	else
+    {
+	    return mass[end];
+    }
 }
 
 bool CircularQueue::Empty() const
 {
-    // your implementation here
+    
+    return size == 0;
 }
 
 bool CircularQueue::Full() const
 {
-    // your implementation here
+    return size == capacity;
 }
