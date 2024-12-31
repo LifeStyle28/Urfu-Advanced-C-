@@ -11,4 +11,10 @@ public:
     int Back() const; // получить значение из конца очереди (-1, если очередь пустая)
     bool Empty() const; // проверить пустая ли очередь
     bool Full() const; // проверить заполнена ли очередь
+private:
+    size_t size = 0;
+    size_t capacity;
+    size_t front = 0;
+    size_t end = 0;
+    std::vector<int> mass ;
 };
