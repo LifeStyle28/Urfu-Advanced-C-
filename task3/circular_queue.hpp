@@ -1,5 +1,4 @@
 #pragma once
-
 #include <cstddef>
 
 class CircularQueue {
@@ -11,4 +10,11 @@ public:
     int Back() const; // получить значение из конца очереди (-1, если очередь пустая)
     bool Empty() const; // проверить пустая ли очередь
     bool Full() const; // проверить заполнена ли очередь
+
+private:
+    int* buffer; 
+    size_t capacity;
+    size_t front;
+    size_t rear;
+    size_t count;
 };
