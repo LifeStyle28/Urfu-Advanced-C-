@@ -68,7 +68,3 @@ bool CircularQueue::Full() const
    return now_rozmer == max_razmer;
 }
 
-int main()
-{
-   return 0;
-}
