@@ -1,36 +1,56 @@
 #include "circular_queue.hpp"
-
-CircularQueue::CircularQueue(size_t size)
+#include <vector>
+CircularQueue::CircularQueue(size_t size): n(0) , size(size) , start(0) , end(0)
 {
-	// your implementation here
+	Mass.resize(size);
 }
-
 bool CircularQueue::Push(int value)
 {
-    // your implementation here
+	if (Full()) 
+	{
+        	return false;
+	}
+	Mass[end] = value;
+	end = (end + 1) % size;
+	n++;
+	return true;
 }
 
 bool CircularQueue::Pop()
 {
-    // your implementation here
+	if (Empty())
+    	{
+        	return false;
+    	}
+	start = (start + 1) % size;
+    	n--;
+    	return true;
 }
 
 int CircularQueue::Front() const
 {
-    // your implementation here
+	if (Empty()) 
+	{
+	return -1;
+	}
+	return Mass[start];
 }
 
 int CircularQueue::Back() const
 {
-    // your implementation here
+	if (Empty())
+	{
+		return -1;
+	}
+	return Mass[(end - 1 + size) % size];
 }
 
 bool CircularQueue::Empty() const
 {
-    // your implementation here
+    return (n == 0);
 }
 
 bool CircularQueue::Full() const
 {
-    // your implementation here
+    return (n == size);
 }
