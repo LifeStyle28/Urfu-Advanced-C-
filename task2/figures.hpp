@@ -3,7 +3,7 @@
 #include <memory>
 #include <stdexcept>
 #include <numbers>
-static constexpr double pi = std::numbers::pi;
+static constexpr double pi = 3.14;
 enum class FigureType
 {
     TRIANGLE,
