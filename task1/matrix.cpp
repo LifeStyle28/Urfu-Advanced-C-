@@ -4,12 +4,17 @@
 
 Matrix::Matrix(int numRows, int numCols)
 {
-    // your implementation here
+    Reset(numRows, numCols);
 }
 
 void Matrix::Reset(int numRows, int numCols)
 {
-    // your implementation here
+    if (numRows <= 0 || numCols <= 0) 
+    {
+        mass.clear();
+        return;
+    }
+    mass.resize(numRows, std::vector<int>(numCols, 0));
 }
 
 int& Matrix::At(int row, int col)
@@ -19,30 +24,67 @@ int& Matrix::At(int row, int col)
 
 const int& Matrix::At(int row, int col) const
 {
-    // your implementation here
+    if (row < 0 || row >= GetRows() || col < 0 || col >= GetCols()) 
+    {
+        throw std::out_of_range("out of range");
+    }
+    return mass[row][col];
 }
 
 int Matrix::GetRows() const
 {
-    // your implementation here
+    return mass.size();
 }
 
 int Matrix::GetCols() const
 {
-    // your implementation here
+    if (mass.empty()) 
+    {
+        return 0;
+    }
+    else 
+    {
+        return mass[0].size();
+    }
 }
 
 bool Matrix::operator==(const Matrix& m2)
 {
-    // your implementation here
+    if (GetRows() != m2.GetRows() || GetCols() != m2.GetCols()) 
+    {
+        return false;
+    }
+    for (size_t i = 0; i < GetRows(); ++i) 
+    {
+        if (!std::equal(mass[i].begin(), mass[i].end(), m2.mass[i].begin())) 
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 bool Matrix::operator!=(const Matrix& m2)
 {
-    // your implementation here
+    bool Matrix::operator!=(const Matrix& m2) 
+    {
+        return !(*this == m2);
+    }
 }
 
 Matrix Matrix::operator+(const Matrix& m2)
 {
-    // your implementation here
+    if (GetRows() != m2.GetRows() || GetCols() != m2.GetCols()) 
+    {
+        throw std::invalid_argument("Matrices must have the same dimensions for addition");
+    }
+    Matrix result(GetRows(), GetCols());
+    for (size_t i = 0; i < GetRows(); ++i) 
+    {
+        for (size_t j = 0; j < GetCols(); ++j) 
+        {
+            result.At(i, j) = At(i, j) + m2.At(i, j);
+        }
+    }
+    return result;
 }
