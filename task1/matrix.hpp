@@ -1,5 +1,6 @@
 #pragma once
-
+#include <stdexcept>
+#include <vector>
 class Matrix
 {
 public:
@@ -15,4 +16,6 @@ public:
     bool operator==(const Matrix& m2);
     bool operator!=(const Matrix& m2);
     Matrix operator+(const Matrix& m2);
+private:
+    std::vector<std::vector<int>> mass;
 };
