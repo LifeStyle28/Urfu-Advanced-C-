@@ -36,7 +36,7 @@ class Triangle : public Figure
 private:
     double a, b, c;
 public:
-    Triangle(double side_a, double side_b, double side_c);
+    Triangle(double a, double b, double c);
     FigureType Type() const override;
     double Perimeter() const override;
     double Area() const override;
