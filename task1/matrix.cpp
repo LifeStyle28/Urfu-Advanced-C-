@@ -1,4 +1,5 @@
 #include "matrix.hpp"
+#include <stdexcept>
 
 Matrix::Matrix(int numRows, int numCols) 
 {
