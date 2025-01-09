@@ -16,7 +16,7 @@ bool CircularQueue::Push(int value) {
 }
 
 bool CircularQueue::Pop() {
-    if (IsEmpty()) {
+    if (Empty()) {
         return false;
     }
     head_index = (head_index + 1) % max_capacity;
@@ -25,14 +25,14 @@ bool CircularQueue::Pop() {
 }
 
 int CircularQueue::Front() const {
-    if (IsEmpty()) {
+    if (Empty()) {
         return -1;
     }
     return storage[head_index];
 }
 
 int CircularQueue::Back() const {
-    if (IsEmpty()) {
+    if (Empty()) {
         return -1;
     }
     return storage[(tail_index - 1 + max_capacity) % max_capacity];
