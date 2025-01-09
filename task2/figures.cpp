@@ -1,7 +1,6 @@
 #include "figures.hpp"
-#include <memory>
-#include <stdexcept>
 #include <cmath>
+#include <stdexcept>
 
 Rect::Rect(double width, double height) : width(width), height(height) {
     if (width < 0 || height < 0) {
@@ -62,15 +61,18 @@ double Circle::Area() const {
 }
 
 std::unique_ptr<Figure> make_figure(FigureType type, double a, double b, double c) {
+    if (a < 0 || b < 0 || c < 0) {
+        throw LessThanZeroParam();
+    }
+
     switch (type) {
         case FigureType::RECTANGLE:
-            if (b <= 0) throw LessThanZeroParam();
             return std::make_unique<Rect>(a, b);
         case FigureType::CIRCLE:
             return std::make_unique<Circle>(a);
         case FigureType::TRIANGLE:
             return std::make_unique<Triangle>(a, b, c);
         default:
-            throw std::invalid_argument("Invalid figure type");
+            return nullptr;
     }
 }
