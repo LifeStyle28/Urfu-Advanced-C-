@@ -5,6 +5,8 @@
 
 Matrix::Matrix(int numRows, int numCols)
 {
+    if (numCols == 0 && numRows == 0)
+        throw std::out_of_range("Empty matrix");
     for (int i = 0; i < numRows; ++i)
     {
         matrix_.push_back({});
