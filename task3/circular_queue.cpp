@@ -38,10 +38,10 @@ int CircularQueue::Back() const {
     return storage[(tail_index - 1 + max_capacity) % max_capacity];
 }
 
-bool CircularQueue::IsEmpty() const {
+bool CircularQueue::Empty() const {
     return current_size == 0;
 }
 
-bool CircularQueue::IsFull() const {
+bool CircularQueue::Full() const {
     return current_size == max_capacity;
 }
