@@ -7,76 +7,67 @@ Matrix::Matrix(int numRows, int numCols)
 
 void Matrix::Reset(int numRows, int numCols) 
 {
-   
     if (numRows < 0 || numCols < 0) 
     {
-        throw std::out_of_range("Столбцы и строки должны быть положительны");
+        throw std::out_of_range("Количество строк и столбцов должно быть неотрицательным");
     }
 
     if (numRows == 0 || numCols == 0) 
     {
         rows = cols = 0;
         data.clear();
-    } else {
+    } 
+    else 
+    {
         rows = numRows;
         cols = numCols;
         data.assign(rows, std::vector<int>(cols));
     }
 }
 
-
 int& Matrix::At(int row, int col) 
 {
-
     if (row < 0 || row >= rows || col < 0 || col >= cols) 
     {
-        throw std::out_of_range("Index out of range");
+        throw std::out_of_range("Индекс за пределами допустимого диапазона");
     }
     return data[row][col];
 }
-
 
 const int& Matrix::At(int row, int col) const 
 {
     if (row < 0 || row >= rows || col < 0 || col >= cols) 
     {
-        throw std::out_of_range("Index out of range");
+        throw std::out_of_range("Индекс за пределами допустимого диапазона");
     }
     return data[row][col];
 }
 
-int Matrix::GetRows() const
+int Matrix::GetRows() const 
 {
     return rows;
 }
 
-int Matrix::GetCols() const
+int Matrix::GetCols() const 
 {
-    
     return cols;
 }
 
-
-bool Matrix::operator==(const Matrix& m2) const
+bool Matrix::operator==(const Matrix& m2) const 
 {
     return rows == m2.rows && cols == m2.cols && data == m2.data;
 }
 
-
-bool Matrix::operator!=(const Matrix& m2) const
+bool Matrix::operator!=(const Matrix& m2) const 
 {
-   
     return !(*this == m2);
 }
 
-
 Matrix Matrix::operator+(const Matrix& m2) const 
 {
-
-}
-    if (rows != m2.rows || cols != m2.cols)
+    if (rows != m2.rows || cols != m2.cols) 
     {
-        throw std::invalid_argument("Невозможно сложить данные матрицы");
+        throw std::invalid_argument("Размеры матриц не совпадают");
     }
 
     Matrix result(rows, cols);
