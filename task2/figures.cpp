@@ -7,7 +7,6 @@ Rect::Rect(double w, double h) : width(w), height(h) {
         throw LessThanZeroParam();
     }
 }
-
 FigureType Rect::Type() const {
     return FigureType::RECTANGLE;
 }
