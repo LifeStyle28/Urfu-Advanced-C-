@@ -6,7 +6,7 @@ CircularQueue::CircularQueue(size_t max_size) : max_capacity(max_size), current_
 }
 
 bool CircularQueue::Push(int value) {
-    if (IsFull()) {
+    if (Full()) {
         return false;
     }
     storage[tail_index] = value;
