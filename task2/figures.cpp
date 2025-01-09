@@ -1,8 +1,9 @@
 #include "figures.hpp"
 #include <cmath>
+#include <stdexcept>
 
-Rect::Rect(double width, double height) : width(width), height(height) {
-    if (width < 0 || height < 0) {
+Rect::Rect(double w, double h) : width(w), height(h) {
+    if (w < 0 || h < 0) {
         throw LessThanZeroParam();
     }
 }
@@ -12,18 +13,18 @@ FigureType Rect::Type() const {
 }
 
 double Rect::Perimeter() const {
-    return 2 * (width + height);
+    return (width + height) * 2;
 }
 
 double Rect::Area() const {
     return width * height;
 }
 
-Triangle::Triangle(double a, double b, double c) : a(a), b(b), c(c) {
-    if (a < 0 || b < 0 || c < 0) {
+Triangle::Triangle(double side1, double side2, double side3) : a(side1), b(side2), c(side3) {
+    if (side1 < 0 || side2 < 0 || side3 < 0) {
         throw LessThanZeroParam();
     }
-    if (a + b <= c || a + c <= b || b + c <= a) {
+    if (side1 + side2 <= side3 || side1 + side3 <= side2 || side2 + side3 <= side1) {
         throw WrongTriangle();
     }
 }
@@ -37,12 +38,12 @@ double Triangle::Perimeter() const {
 }
 
 double Triangle::Area() const {
-    double p = Perimeter() / 2;
-    return std::sqrt(p * (p - a) * (p - b) * (p - c));
+    double half_perimeter = Perimeter() / 2;
+    return std::sqrt(half_perimeter * (half_perimeter - a) * (half_perimeter - b) * (half_perimeter - c));
 }
 
-Circle::Circle(double radius) : radius(radius) {
-    if (radius < 0) {
+Circle::Circle(double r) : radius(r) {
+    if (r < 0) {
         throw LessThanZeroParam();
     }
 }
@@ -59,16 +60,19 @@ double Circle::Area() const {
     return PI * radius * radius;
 }
 
-std::unique_ptr<Figure> make_figure(FigureType type, double a, double b, double c) {
+std::unique_ptr<Figure> make_figure(FigureType type, double x, double y, double z) {
+    if (x < 0 || y < 0 || z < 0) {
+        throw LessThanZeroParam();
+    }
+
     switch (type) {
         case FigureType::RECTANGLE:
-            if (b <= 0) throw LessThanZeroParam();
-            return std::make_unique<Rect>(a, b);
+            return std::make_unique<Rect>(x, y);
         case FigureType::CIRCLE:
-            return std::make_unique<Circle>(a);
+            return std::make_unique<Circle>(x);
         case FigureType::TRIANGLE:
-            return std::make_unique<Triangle>(a, b, c);
+            return std::make_unique<Triangle>(x, y, z);
         default:
-            throw std::invalid_argument("Invalid figure type");
+            return nullptr;
     }
 }
