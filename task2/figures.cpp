@@ -59,14 +59,16 @@ double Circle::Area() const {
     return PI * radius * radius;
 }
 
-std::unique_ptr<Figure> make_figure(FigureType type, double a, double b, double c) {
+std::unique_ptr<Figure> make_figure(FigureType type, double a, double b = -1, double c = -1) {
     switch (type) {
         case FigureType::RECTANGLE:
-            if (b <= 0) throw LessThanZeroParam();
+            if (a <= 0 || b <= 0) throw LessThanZeroParam();
             return std::make_unique<Rect>(a, b);
         case FigureType::CIRCLE:
+            if (a <= 0) throw LessThanZeroParam();
             return std::make_unique<Circle>(a);
         case FigureType::TRIANGLE:
+            if (a <= 0 || b <= 0 || c <= 0) throw LessThanZeroParam();
             return std::make_unique<Triangle>(a, b, c);
         default:
             throw std::invalid_argument("Invalid figure type");
