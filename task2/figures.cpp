@@ -1,5 +1,4 @@
 #include "figures.hpp"
-#include <stdexcept>
 #include <cmath>
 
 Rect::Rect(double width, double height) : width(width), height(height) {
