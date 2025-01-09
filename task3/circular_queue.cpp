@@ -1,9 +1,9 @@
 #include "circular_queue.hpp"
 
 CircularQueue::CircularQueue(size_t size) : 
-    maxSize(size), 
     head(0), 
     tail(0), 
+    maxSize(size),
     currentSize(0) {
     buffer.resize(size);
 }
