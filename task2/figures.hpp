@@ -67,16 +67,10 @@ class WrongTriangle : public std::invalid_argument
 {
 public:
     WrongTriangle(std::string msg);
-
-private:
-    std::string _exceptionMsg;
 };
 
 class LessThanZeroParam : public std::invalid_argument
 {
 public:
     LessThanZeroParam(std::string msg);
-
-private:
-    std::string _exceptionMsg;
 };
