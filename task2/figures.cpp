@@ -59,7 +59,7 @@ double Circle::Area() const {
     return PI * radius * radius;
 }
 
-std::unique_ptr<Figure> make_figure(FigureType type, double a, double b = -1, double c = -1) {
+std::unique_ptr<Figure> make_figure(FigureType type, double a, double b , double c) {
     switch (type) {
         case FigureType::RECTANGLE:
             if (a <= 0 || b <= 0) throw LessThanZeroParam();
