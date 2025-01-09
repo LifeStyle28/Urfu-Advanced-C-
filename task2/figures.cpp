@@ -1,4 +1,5 @@
 #include "figures.hpp"
+#include <memory>
 #include <cmath>
 #include <stdexcept>
 
