@@ -1,8 +1,7 @@
 #pragma once
+
 #include <memory>
 #include <stdexcept>
-
-static constexpr double PI = 3.14;
 
 enum class FigureType {
     TRIANGLE,
@@ -56,10 +55,10 @@ std::unique_ptr<Figure> make_figure(FigureType type, double a, double b = 0, dou
 
 class WrongTriangle : public std::invalid_argument {
 public:
-    WrongTriangle() : std::invalid_argument("") {}
+    explicit WrongTriangle(const std::string& message) : std::invalid_argument(message) {}
 };
 
 class LessThanZeroParam : public std::invalid_argument {
 public:
-    LessThanZeroParam() : std::invalid_argument("") {}
+    explicit LessThanZeroParam(const std::string& message) : std::invalid_argument(message) {}
 };
