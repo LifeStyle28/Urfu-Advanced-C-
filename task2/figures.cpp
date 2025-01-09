@@ -83,3 +83,13 @@ std::unique_ptr<Figure> make_figure(FigureType type, double a, double b, double 
             throw std::invalid_argument("Unknown figure type.");
     }
 }
+
+WrongTriangle::WrongTriangle(std::string msg) :
+    std::invalid_argument(msg)
+{
+}
+
+LessThanZeroParam::LessThanZeroParam(std::string msg) :
+    std::invalid_argument(msg)
+{
+}
