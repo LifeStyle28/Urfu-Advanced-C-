@@ -56,12 +56,10 @@ std::unique_ptr<Figure> make_figure(FigureType type, double a, double b = 0, dou
 
 class WrongTriangle : public std::invalid_argument {
 public:
-    explicit WrongTriangle() 
-        : std::invalid_argument("Invalid triangle sides provided") {}
+    WrongTriangle() : std::invalid_argument("") {}
 };
 
 class LessThanZeroParam : public std::invalid_argument {
 public:
-    explicit LessThanZeroParam() 
-        : std::invalid_argument("Parameter cannot be less than zero") {}
+    LessThanZeroParam() : std::invalid_argument("") {}
 };
