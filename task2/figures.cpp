@@ -17,7 +17,7 @@ double Rect::Perimeter() const {
 
 double Rect::Area() const {
     return width * height;
-}
+} 
 
 Triangle::Triangle(double side1, double side2, double side3) : a(side1), b(side2), c(side3) {
     if (side1 < 0 || side2 < 0 || side3 < 0) {
