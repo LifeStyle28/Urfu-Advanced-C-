@@ -1,7 +1,6 @@
 #pragma once
 #include <memory>
 #include <stdexcept>
-
 static constexpr double PI = 3.14;
 
 enum class FigureType {
