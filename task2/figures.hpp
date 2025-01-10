@@ -33,7 +33,7 @@ class Triangle : public Figure
 private:
     double a,b,c;
 public:
-    Rect(double a, double b, double c);
+    Triangle(double a, double b, double c);
     FigureType Type() const;
     double Perimeter() const;
     double Area() const;
@@ -44,7 +44,7 @@ class Circle : public Figure
 private:
     double r;
 public:
-    Rect(double r);
+    Circle(double r);
     FigureType Type() const;
     double Perimeter() const;
     double Area() const;
@@ -55,12 +55,12 @@ std::unique_ptr<Figure> make_figure(FigureType type, double a, double b = 0, dou
 class WrongTriangle : public invalid_argument 
 {
 public:
-    using std::invalid_argument::invalid_argument;
+    WrongTriangle() : std::invalid_argument("") {}
 };
 
 class LessThanZeroParam : public invalid_argument 
 {
 public:
-    using std::invalid_argument::invalid_argument;
+    LessThanZeroParam() : std::invalid_argument("") {}
 };
 
