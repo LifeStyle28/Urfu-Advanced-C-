@@ -1,5 +1,6 @@
 #pragma once
-
+#include <vector>
+using namespace std;
 class Matrix
 {
 private:
@@ -18,4 +19,7 @@ public:
     bool operator==(const Matrix& m2);
     bool operator!=(const Matrix& m2);
     Matrix operator+(const Matrix& m2);
+
+    istream& operator>>(istream& in, Matrix& M)
+    ostream& operator<<(ostream& out, const Matrix& M)
 };
