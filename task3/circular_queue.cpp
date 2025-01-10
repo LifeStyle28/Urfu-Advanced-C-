@@ -1,6 +1,6 @@
 #include "circular_queue.hpp"
-
-CircularQueue::CircularQueue(size_t size)
+#include <vector>
+CircularQueue::CircularQueue(int size)
 {
         V.resize(size);
 }
