@@ -11,6 +11,10 @@ public:
     {
         this->l = l;
         this->h = h;
+        if (l < 0 || h < 0) 
+        {
+            throw LessThanZeroParam("");
+        }
     }
     FigureType Type() const
     {
@@ -34,6 +38,14 @@ public:
         this->a = a;
         this->b = b;
         this->c = c;
+        if (a < 0 || b < 0 || c < 0) 
+        {
+            throw LessThanZeroParam("");
+        }
+        if (a + b <= c || a + c <= b || b + c <= a) 
+        {
+            throw WrongTriangle("");
+        }
     }
     FigureType Type() const
     {
@@ -56,6 +68,10 @@ public:
     Circle(double r)
     {
         this->r = r;
+        if (r < 0) 
+        {
+            throw LessThanZeroParam("");
+        }
     }
     FigureType Type() const
     {
