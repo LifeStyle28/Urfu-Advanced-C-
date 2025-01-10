@@ -1,18 +1,22 @@
 #include "matrix.hpp"
-
+#include <vector>
+using namespace std;
 #include <stdexcept>
 
 Matrix::Matrix(int numRows, int numCols)
 {
-    if (numRows < 0 || numCols < 0) {
+    if (numRows < 0 || numCols < 0) 
+    {
         throw out_of_range("");
     }
-    if (numRows == 0 || numCols == 0) {
+    if (numRows == 0 || numCols == 0) 
+    {
         x = 0;
         y = 0;
         Z.clear();
     }
-    else {
+    else 
+    {
         x = numRows;
         y = numCols;
         Z.assign(x, vector<int>(y, 0));
@@ -75,11 +79,10 @@ bool Matrix::operator==(const Matrix& m2)
     }
     else
     {
-        int i = 0, j=0;
         bool b = true;
-        for (i; i < x; ++i)
+        for (int i=0; i < x; ++i)
         {
-            for (j; j < y; ++j)
+            for (int j=0; j < y; ++j)
             {
                 if (Z[i][j] != m2.At(i, j))
                 {
@@ -113,7 +116,7 @@ Matrix Matrix::operator+(const Matrix& m2)
                     S.At(i, j) = Z[i][j] + m2.At(i, j);
                 }
             }
-            return res;
+            return S;
         }
     }
 
@@ -130,7 +133,8 @@ istream& operator>>(istream& in, Matrix& M)
     return in;
 }
 
-ostream& operator<<(ostream& out, const Matrix& M) {
+ostream& operator<<(ostream& out, const Matrix& M) 
+{
     out << M.GetRows() << " " << M.GetCols() << "\n";
     for (int i = 0; i < M.GetRows(); ++i) {
         for (int j = 0; j < M.GetCols(); ++j) {
