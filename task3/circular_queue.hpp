@@ -4,18 +4,18 @@
 
 class CircularQueue {
 private:
-    std::vector<int> buffer;            // Dynamic array to store elements
-    size_t capacity;        // Maximum size of the queue
-    size_t size;           // Current count of elements
-    size_t front;          // Index of the front element
-    size_t rear;           // Index of the rear element
+    std::vector<int> storage;          // Dynamic array to store elements
+    size_t max_capacity;               // Maximum size of the queue
+    size_t current_size;               // Current count of elements
+    size_t head_index;                 // Index of the front element
+    size_t tail_index;                 // Index of the rear element
 
 public:
-    CircularQueue(size_t size);
-    bool Push(int value);
-    bool Pop();
-    int Front() const;
-    int Back() const;
-    bool Empty() const;
-    bool Full() const;
+    CircularQueue(size_t max_size);    // Constructor
+    bool Push(int value);              // Add value to the end
+    bool Pop();                        // Remove value from the front
+    int Front() const;                 // Get front value
+    int Back() const;                  // Get back value
+    bool Empty() const;              // Check if empty
+    bool Full() const;               // Check if full
 };
