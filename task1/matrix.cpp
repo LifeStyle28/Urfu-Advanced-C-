@@ -7,7 +7,7 @@ Matrix::Matrix(int numRows, int numCols)
 {
     if (numRows < 0 || numCols < 0) 
     {
-        throw out_of_range("");
+        throw std::out_of_range("");
     }
     if (numRows == 0 || numCols == 0) 
     {
@@ -27,7 +27,7 @@ void Matrix::Reset(int numRows, int numCols)
 {
     if (numRows < 0 || numCols < 0) 
     {
-        throw out_of_range("");
+        throw std::out_of_range("");
     }
     if (numRows == 0 || numCols == 0) 
     {
@@ -47,7 +47,7 @@ int& Matrix::At(int row, int col)
 {
     if (row < 0 || row >= x || col < 0 || col >= y) 
     {
-        throw out_of_range("");
+        throw std::out_of_range("");
     }
     return Z[row][col];
 }
@@ -56,7 +56,7 @@ const int& Matrix::At(int row, int col) const
 {
     if (row < 0 || row >= x || col < 0 || col >= y)
     {
-        throw out_of_range("");
+        throw std::out_of_range("");
     }
     return Z[row][col];
 }
@@ -104,7 +104,7 @@ Matrix Matrix::operator+(const Matrix& m2)
 {
         if (x != m2.GetRows() || y != m2.GetCols())
         {
-            throw invalid_argument("");
+            throw std::invalid_argument("");
         }
         else
         {
@@ -120,7 +120,7 @@ Matrix Matrix::operator+(const Matrix& m2)
         }
     }
 
-istream& operator>>(istream& in, Matrix& M)
+std::istream& operator>>(std::istream& in, Matrix& M)
 {
     int x, y;
     in >> x >> y;
@@ -133,7 +133,7 @@ istream& operator>>(istream& in, Matrix& M)
     return in;
 }
 
-ostream& operator<<(ostream& out, const Matrix& M) 
+std::ostream& operator<<(std::ostream& out, const Matrix& M) 
 {
     out << M.GetRows() << " " << M.GetCols() << "\n";
     for (int i = 0; i < M.GetRows(); ++i) {
