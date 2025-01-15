@@ -1,36 +1,86 @@
 #include "circular_queue.hpp"
-
-CircularQueue::CircularQueue(size_t size)
+CircularQueue::CircularQueue(int size)
 {
-	// your implementation here
+        int V[size];
 }
 
 bool CircularQueue::Push(int value)
 {
-    // your implementation here
+        if (Full())
+        {
+            return false;
+        }
+        else
+        {
+            if (s == -1) s = 0; 
+            e = (e + 1) % V.size();
+            V[e] = value;
+            return true;
+        }
 }
 
 bool CircularQueue::Pop()
 {
-    // your implementation here
+        if (Empty()) 
+        {
+            return false;
+        }
+        else 
+        {
+            if (s == e) 
+	    {
+                s = -1;
+                e = -1;
+            }
+            else 
+            {
+                s = (s + 1) % V.size();
+            }
+            return true;
+        }
 }
 
 int CircularQueue::Front() const
 {
-    // your implementation here
+    if (Empty())
+    {
+        return -1;
+    }
+    else
+    {
+        return V[s];
+    }
 }
 
 int CircularQueue::Back() const
 {
-    // your implementation here
+    if (Empty())
+    {
+        return -1;
+    }
+    else
+    {
+        return V[e];
+    }
 }
 
 bool CircularQueue::Empty() const
 {
-    // your implementation here
+    if (s == -1)
+        return true;
+    else
+        return false;
 }
 
 bool CircularQueue::Full() const
 {
-    // your implementation here
+	if (s == 0 && e == V.size() - 1) 
+	{
+	    return true;
+	}
+	if (s == (e + 1) % V.size()) 
+	{
+	    return true;
+	}
+	return false;
 }

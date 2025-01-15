@@ -1,8 +1,9 @@
 #pragma once
-
 #include <cstddef>
 
 class CircularQueue {
+private:
+    int s = -1, e = -1;
 public:
     CircularQueue(size_t size); // создать очередь с определенным размером буффера
     bool Push(int value); // добавить значение в конец очереди (false, если очередь заполнена)
