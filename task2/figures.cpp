@@ -4,7 +4,7 @@
 using namespace std;
 static constexpr double PI = 3.14;
 
-class Rect : public Figure
+class Rect 
 {
 public:
     Rect(double l, double h)
@@ -30,7 +30,7 @@ public:
     }
 };
 
-class Triangle : public Figure
+class Triangle 
 {
 public:
     Triangle(double a, double b, double c)
@@ -62,7 +62,7 @@ public:
     }
 };
 
-class Circle : public Figure
+class Circle 
 {
 public:
     Circle(double r)
@@ -87,7 +87,7 @@ public:
     }
 };
 
-unique_ptr<Figure> make_figure(FigureType type, double a, double b, double c)
+std::unique_ptr<Figure> make_figure(FigureType type, double a, double b, double c)
 {
     if (a < 0 || b < 0 || c < 0) 
     {
@@ -95,11 +95,11 @@ unique_ptr<Figure> make_figure(FigureType type, double a, double b, double c)
     }
     if (type == FigureType::RECTANGLE) 
     {
-        return make_unique<Rect>(a, b);
+        return std::make_unique<Rect>(a, b);
     }
     else if (type == FigureType::CIRCLE) 
     {
-        return make_unique<Circle>(a);
+        return std::make_unique<Circle>(a);
     }
     else if (type == FigureType::TRIANGLE) 
     {
@@ -107,7 +107,7 @@ unique_ptr<Figure> make_figure(FigureType type, double a, double b, double c)
         {
             throw WrongTriangle("");
         }
-        return make_unique<Triangle>(a, b, c);
+        return std::make_unique<Triangle>(a, b, c);
     }
     else 
     {
