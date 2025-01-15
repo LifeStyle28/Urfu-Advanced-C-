@@ -1,10 +1,8 @@
 #pragma once
-#include <vector>
 #include <cstddef>
 
 class CircularQueue {
 private:
-    vector <int> V;
     int s = -1, e = -1;
 public:
     CircularQueue(size_t size); // создать очередь с определенным размером буффера
