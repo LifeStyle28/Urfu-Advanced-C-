@@ -1,8 +1,7 @@
 #include "circular_queue.hpp"
-#include <vector>
 CircularQueue::CircularQueue(int size)
 {
-        V.resize(size);
+        int V[size];
 }
 
 bool CircularQueue::Push(int value)
