@@ -20,6 +20,6 @@ public:
     bool operator!=(const Matrix& m2);
     Matrix operator+(const Matrix& m2);
 
-    istream& operator>>(istream& in, Matrix& M)
-    ostream& operator<<(ostream& out, const Matrix& M)
+    friend istream& operator>>(istream& in, Matrix& M)
+    friend ostream& operator<<(ostream& out, const Matrix& M)
 };
